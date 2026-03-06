@@ -50,7 +50,7 @@ const page = () => {
         >
 
 
-            <div className="w-8/12  mx-auto">
+            <div className="w-8/12  place-self-center pt-20">
 
 
 

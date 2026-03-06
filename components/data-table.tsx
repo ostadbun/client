@@ -61,13 +61,23 @@ const [columnFilters, setColumnFilters] =
 
   return (
     <div className="mx-auto w-full  rounded-md border">
-      <Input
-        placeholder="Filter emails..."
+      <div className="flex items-center justify-between p-3">
+        <Input
+        className="w-10/12"
+        placeholder="نمایش بر اساس نام . . ."
         value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
         onChange={(event) =>
           table.getColumn("email")?.setFilterValue(event.target.value)
         }
+
       />
+      <Button
+      variant="outline"
+      size="sm"
+      className="">
+      دکمه
+    </Button>
+      </div>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -110,8 +120,8 @@ const [columnFilters, setColumnFilters] =
 <div className="flex items-center justify-between px-2 py-4">
   {/* left side */}
   <div className="text-sm text-muted-foreground">
-    {table.getFilteredSelectedRowModel()?.rows?.length} of{" "}
-    {table.getFilteredRowModel()?.rows?.length} row(s) selected.
+    {table.getFilteredSelectedRowModel()?.rows?.length} از{" "}
+    {table.getFilteredRowModel()?.rows?.length} ردیف انتخاب شده.
   </div>
 
   {/* right side */}
@@ -122,7 +132,7 @@ const [columnFilters, setColumnFilters] =
       onClick={() => table.previousPage()}
       disabled={!table.getCanPreviousPage()}
     >
-      Previous
+      قبلی
     </Button>
     <Button
       variant="outline"
@@ -130,7 +140,7 @@ const [columnFilters, setColumnFilters] =
       onClick={() => table.nextPage()}
       disabled={!table.getCanNextPage()}
     >
-      Next
+      بعدی
     </Button>
   </div>
 </div>

@@ -63,7 +63,7 @@ export default function Page() {
     const categoryValue = watch("category")
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="w-8/12 mx-auto space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-8/12 place-self-center pt-20 space-y-6">
             <h2 className="text-3xl font-extrabold text-center">ثبت دانشگاه جدید</h2>
 
             {/* نام درس */}

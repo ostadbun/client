@@ -14,6 +14,8 @@ import { Separator } from "@/components/ui/separator";
 import { Clock, User, University as UniversityIcon, BookOpen, GraduationCap } from "lucide-react";
 
 export default async function PendingPage() {
+
+
   let data: PendingSubmissionsResponse | null = null;
   let error: string | null = null;
 
@@ -21,9 +23,9 @@ export default async function PendingPage() {
     const response = await api.get<PendingSubmissionsResponse>("/pending");
 
     // Validate the response
-    if (!response || !response.data) {
-      throw new Error("پاسخ نامعتبر از سرور");
-    }
+    // if (!response || !response.data) {
+    //   throw new Error("پاسخ نامعتبر از سرور");
+    // }
 
     data = response.data;
   } catch (err) {

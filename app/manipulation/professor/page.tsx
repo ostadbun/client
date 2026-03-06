@@ -79,7 +79,7 @@ export default function Page() {
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="w-8/12 mx-auto space-y-6"
+            className="w-8/12 place-self-center pt-20 space-y-6"
         >
             <h2 className="text-3xl font-extrabold text-center">
                 ثبت استاد

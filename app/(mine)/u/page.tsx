@@ -25,10 +25,8 @@ interface Entity {
 const fetcher = async (url: string): Promise<Entity[]> => {
   const res = await api.get(url)
 
-  // اگر API مستقیم آرایه برگردونه
   if (Array.isArray(res.data)) return res.data
 
-  // اگر داخل university باشه
   if (res.data.university) return res.data.university
 
   return []

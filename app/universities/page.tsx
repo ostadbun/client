@@ -30,6 +30,7 @@ const data: Payment[] = [
     email: "carmella@example.com",
     amount: 721,
   },
+  
 ]
 
 export default function Page() {
