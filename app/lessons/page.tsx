@@ -6,28 +6,28 @@ import LessonInfo from "./lessonInfo"
 const data: Payment[] = [
   {
     status: "success",
-    email: "ken99@example.com",
-    amount: 316,
+    lessonsName: "پایگاه داده",
+    amount:4
   },
   {
     status: "success",
-    email: "abe45@example.com",
-    amount: 242,
+    lessonsName: "پایگاه داده",
+    amount:2
   },
   {
     status: "processing",
-    email: "monserrat44@example.com",
-    amount: 837,
+    lessonsName: "پایگاه داده",
+    amount:2
   },
   {
     status: "success",
-    email: "silas22@example.com",
-    amount: 874,
+    lessonsName: "پایگاه داده",
+    amount:2
   },
   {
     status: "failed",
-    email: "carmella@example.com",
-    amount: 721,
+    lessonsName: "پایگاه داده",
+    amount:2
   },
 ]
 

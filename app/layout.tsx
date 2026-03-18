@@ -4,7 +4,6 @@ import "./globals.css";
 import { DirectionProvider } from "@base-ui/react";
 import { Metadata } from "next";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -18,7 +17,7 @@ const arad = localFont({
 
 });
 
-export const metadata = {
+export const metadata:Metadata = {
   title: 'OstadBun',
   description: 'پلتفرم یادگیری با استادبُن',
   icons: {

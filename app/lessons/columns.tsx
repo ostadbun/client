@@ -7,7 +7,7 @@ import { MoreHorizontal, ArrowUpDown } from "lucide-react"
 
 export type Payment = {
   status: "success" | "processing" | "failed"
-  email: string
+  lessonsName: string
   amount: number
 }
 
@@ -17,18 +17,14 @@ export const columns: ColumnDef<Payment>[] = [
     header: ({ table }) => (
       <Checkbox
         checked={table.getIsAllPageRowsSelected()}
-        onCheckedChange={(value) =>
-          table.toggleAllPageRowsSelected(!!value)
-        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={(value) =>
-          row.toggleSelected(!!value)
-        }
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Select row"
       />
     ),
@@ -38,18 +34,16 @@ export const columns: ColumnDef<Payment>[] = [
     header: "Status",
   },
   {
-    accessorKey: "email",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Email
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
+    accessorKey: "lessonsName",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        نام درس
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
   },
   {
     accessorKey: "amount",
@@ -60,7 +54,6 @@ export const columns: ColumnDef<Payment>[] = [
         style: "currency",
         currency: "USD",
       }).format(amount)
-
       return <div>{formatted}</div>
     },
   },

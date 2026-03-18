@@ -7,35 +7,30 @@ import ProfessorsInfo from "./professorsInfo"
 const data: Payment[] = [
   {
     status: "success",
-    email: "ken99@example.com",
-    amount: 316,
+    professorsName: "استاد شهشهانی"
   },
   {
     status: "success",
-    email: "abe45@example.com",
-    amount: 242,
+    professorsName: "استاد شهشهانی"
   },
   {
     status: "processing",
-    email: "monserrat44@example.com",
-    amount: 837,
+    professorsName: "استاد شهشهانی"
   },
   {
     status: "success",
-    email: "silas22@example.com",
-    amount: 874,
+    professorsName: "استاد شهشهانی"
   },
   {
     status: "failed",
-    email: "carmella@example.com",
-    amount: 721,
+    professorsName: "استاد شهشهانی"
   },
 ]
 
 export default function Page() {
   return (
     <div className=" mx-auto py-10">
-      
+
       <ProfessorsInfo
         imageSrc="https://blog.faradars.org/wp-content/uploads/2024/12/siavash-shahshahani.jpg"
         teachingYears={4}

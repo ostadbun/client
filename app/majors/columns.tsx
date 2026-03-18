@@ -7,8 +7,7 @@ import { MoreHorizontal, ArrowUpDown } from "lucide-react"
 
 export type Payment = {
   id: 1|2|3|4|5
-  email: string
-  amount: number
+  majorsName:string
 }
 
 export const columns: ColumnDef<Payment>[] = [

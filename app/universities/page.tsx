@@ -7,30 +7,24 @@ import UniversitiesInfo from "./universitiesInfo"
 const data: Payment[] = [
   {
     status: "success",
-    email: "ken99@example.com",
-    amount: 316,
+    universitiesName: "شریف"
   },
   {
     status: "success",
-    email: "abe45@example.com",
-    amount: 242,
+    universitiesName: "شریف"
   },
   {
     status: "processing",
-    email: "monserrat44@example.com",
-    amount: 837,
+    universitiesName: "شریف"
   },
   {
     status: "success",
-    email: "silas22@example.com",
-    amount: 874,
+    universitiesName: "شریف"
   },
   {
     status: "failed",
-    email: "carmella@example.com",
-    amount: 721,
+    universitiesName: "شریف"
   },
-  
 ]
 
 export default function Page() {
