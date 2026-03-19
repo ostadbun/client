@@ -7,23 +7,23 @@ import ProfessorsInfo from "./professorsInfo"
 const data: Payment[] = [
   {
     status: "success",
-    professorsName: "استاد شهشهانی"
+    name: "استاد شهشهانی"
   },
   {
     status: "success",
-    professorsName: "استاد شهشهانی"
+    name: "استاد شهشهانی"
   },
   {
     status: "processing",
-    professorsName: "استاد شهشهانی"
+    name: "استاد شهشهانی"
   },
   {
     status: "success",
-    professorsName: "استاد شهشهانی"
+    name: "استاد شهشهانی"
   },
   {
     status: "failed",
-    professorsName: "استاد شهشهانی"
+    name: "استاد شهشهانی"
   },
 ]
 

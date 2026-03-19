@@ -6,7 +6,8 @@
     "dev": "next dev --port 8800",
     "build": "next build ",
     "start": "next start --port 8080",
-    "lint": "eslint"
+    "lint": "eslint",
+    "serve-json":"json-server --watch db.json --port 4000"
   },
   "dependencies": {
     "@base-ui/react": "^1.2.0",

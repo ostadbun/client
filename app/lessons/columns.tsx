@@ -7,7 +7,7 @@ import { MoreHorizontal, ArrowUpDown } from "lucide-react"
 
 export type Payment = {
   status: "success" | "processing" | "failed"
-  lessonsName: string
+  name: string
   amount: number
 }
 
@@ -34,7 +34,7 @@ export const columns: ColumnDef<Payment>[] = [
     header: "Status",
   },
   {
-    accessorKey: "lessonsName",
+    accessorKey: "name",
     header: ({ column }) => (
       <Button
         variant="ghost"

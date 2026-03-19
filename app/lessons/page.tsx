@@ -6,27 +6,27 @@ import LessonInfo from "./lessonInfo"
 const data: Payment[] = [
   {
     status: "success",
-    lessonsName: "پایگاه داده",
+    name: "پایگاه داده",
     amount:4
   },
   {
     status: "success",
-    lessonsName: "پایگاه داده",
+    name: "پایگاه داده",
     amount:2
   },
   {
     status: "processing",
-    lessonsName: "پایگاه داده",
+    name: "پایگاه داده",
     amount:2
   },
   {
     status: "success",
-    lessonsName: "پایگاه داده",
+    name: "پایگاه داده",
     amount:2
   },
   {
     status: "failed",
-    lessonsName: "پایگاه داده",
+    name: "پایگاه داده",
     amount:2
   },
 ]

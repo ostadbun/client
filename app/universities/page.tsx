@@ -7,23 +7,23 @@ import UniversitiesInfo from "./universitiesInfo"
 const data: Payment[] = [
   {
     status: "success",
-    universitiesName: "شریف"
+    name: "شریف"
   },
   {
     status: "success",
-    universitiesName: "شریف"
+    name: "شریف"
   },
   {
     status: "processing",
-    universitiesName: "شریف"
+    name: "شریف"
   },
   {
     status: "success",
-    universitiesName: "شریف"
+    name: "شریف"
   },
   {
     status: "failed",
-    universitiesName: "شریف"
+    name: "شریف"
   },
 ]
 

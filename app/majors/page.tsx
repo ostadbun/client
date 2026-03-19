@@ -7,23 +7,23 @@ import MajorsInfo from "./majorsInfo"
 const data: Payment[] = [
   {
     id: 1,
-    majorsName: "کامپیوتر"
+    name: "کامپیوتر"
   },
   {
     id: 2,
-    majorsName: "کامپیوتر"
+    name: "ببببب"
   },
   {
     id: 3,
-    majorsName: "کامپیوتر"
+    name: "کامپیوتر"
   },
   {
     id: 4,
-    majorsName: "کامپیوتر"
+    name: "کامپیوتر"
   },
   {
     id: 5,
-    majorsName: "کامپیوتر"
+    name: "کامپیوتر"
   },
 ]
 

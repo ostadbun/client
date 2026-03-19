@@ -1,0 +1,9 @@
+{
+    "relations":{
+        "professorsRelations":"روابط استاد",
+        "universitiesRelations":"روابط دانشگاه ",
+        "majorsRelations":"روابط رشته",
+        "lessonsRelations":"روابط درس"
+        
+    }
+}

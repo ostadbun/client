@@ -25,9 +25,15 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import React from "react"
+import useSWR from "swr"
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+}
+const relationData = async () => {
+  const res = await fetch("http://localhost:4000/relations")
+  const resData = await res.json()
+  return resData
 }
 
 export function DataTable<TData, TValue>({
@@ -35,10 +41,10 @@ export function DataTable<TData, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
-const [columnFilters, setColumnFilters] =
-  React.useState<ColumnFiltersState>([])
+  const [columnFilters, setColumnFilters] =
+    React.useState<ColumnFiltersState>([])
   const [rowSelection, setRowSelection] = React.useState({})
-
+  const { data, isLoading } = useSWR("relations", relationData)
   const table = useReactTable({
     data,
     columns,
@@ -59,24 +65,30 @@ const [columnFilters, setColumnFilters] =
     getPaginationRowModel: getPaginationRowModel(),
   })
 
-  return (
+  return isLoading ? (
+    <Button>
+      "please wait"
+    </Button>
+  ) : (
     <div className="mx-auto w-full  rounded-md border">
       <div className="flex items-center justify-between p-3">
         <Input
-        className="w-10/12"
-        placeholder="نمایش بر اساس نام . . ."
-        value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
-        onChange={(event) =>
-          table.getColumn("email")?.setFilterValue(event.target.value)
-        }
+          className="w-10/12"
+          placeholder="نمایش بر اساس نام . . ."
+          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("name")?.setFilterValue(event.target.value)
+          }
 
-      />
-      <Button
-      variant="outline"
-      size="sm"
-      className="">
-      دکمه
-    </Button>
+        />
+        {Object.keys(data).map(key => (
+          <Button
+            variant="outline"
+            size="sm"
+            className="">
+            {`${data[key]}`}
+          </Button>
+        ))}
       </div>
       <Table>
         <TableHeader>
@@ -117,33 +129,33 @@ const [columnFilters, setColumnFilters] =
           )}
         </TableBody>
       </Table>
-<div className="flex items-center justify-between px-2 py-4">
-  {/* left side */}
-  <div className="text-sm text-muted-foreground">
-    {table.getFilteredSelectedRowModel()?.rows?.length} از{" "}
-    {table.getFilteredRowModel()?.rows?.length} ردیف انتخاب شده.
-  </div>
+      <div className="flex items-center justify-between px-2 py-4">
+        {/* left side */}
+        <div className="text-sm text-muted-foreground">
+          {table.getFilteredSelectedRowModel()?.rows?.length} از{" "}
+          {table.getFilteredRowModel()?.rows?.length} ردیف انتخاب شده.
+        </div>
 
-  {/* right side */}
-  <div className="flex items-center space-x-2">
-    <Button
-      variant="outline"
-      size="sm"
-      onClick={() => table.previousPage()}
-      disabled={!table.getCanPreviousPage()}
-    >
-      قبلی
-    </Button>
-    <Button
-      variant="outline"
-      size="sm"
-      onClick={() => table.nextPage()}
-      disabled={!table.getCanNextPage()}
-    >
-      بعدی
-    </Button>
-  </div>
-</div>
+        {/* right side */}
+        <div className="flex items-center space-x-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            قبلی
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            بعدی
+          </Button>
+        </div>
+      </div>
     </div>
   )
 }
