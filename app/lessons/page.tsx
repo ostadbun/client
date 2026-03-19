@@ -35,7 +35,7 @@ export default function Page() {
   return (
     <div className=" mx-auto py-10">
       
-      <LessonInfo level={3} semesterInfo={6} />
+      <LessonInfo  level={3} semesterInfo={6} />
 
       <div className="mx-auto max-w-screen-xl pt-24 grid grid-cols-2 gap-8">
         <DataTable columns={columns} data={data} />

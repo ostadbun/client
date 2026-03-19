@@ -44,9 +44,9 @@ export function DataTable<TData, TValue>({
   const [columnFilters, setColumnFilters] =
     React.useState<ColumnFiltersState>([])
   const [rowSelection, setRowSelection] = React.useState({})
-  const { data, isLoading } = useSWR("relations", relationData)
+  const { data: tableData, isLoading } = useSWR("relations", relationData)
   const table = useReactTable({
-    data,
+    data: tableData || [],
     columns,
     state: {
       sorting,
@@ -67,7 +67,7 @@ export function DataTable<TData, TValue>({
 
   return isLoading ? (
     <Button>
-      "please wait"
+      please wait
     </Button>
   ) : (
     <div className="mx-auto w-full  rounded-md border">
@@ -81,14 +81,19 @@ export function DataTable<TData, TValue>({
           }
 
         />
-        {Object.keys(data).map(key => (
+        <div className="flex gap-2">
+
+        {tableData && Array.isArray(tableData) && tableData.map((item: any) => (
           <Button
+            key={item.id} 
             variant="outline"
             size="sm"
-            className="">
-            {`${data[key]}`}
+          >
+            
+            {item.name} 
           </Button>
         ))}
+        </div>
       </div>
       <Table>
         <TableHeader>
