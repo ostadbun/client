@@ -1,4 +1,3 @@
-"use client"
 
 import {
   ColumnDef,
@@ -31,7 +30,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
 }
 const relationData = async () => {
-  const res = await fetch("http://localhost:4000/3")
+  const res = await fetch("http://localhost:4000/0")
   const resData = await res.json()
   return resData
 }
@@ -64,7 +63,7 @@ export function DataTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   })
-
+  
   return isLoading ? (
     <Button>
       لطفا منتظر بمانید
@@ -83,9 +82,9 @@ export function DataTable<TData, TValue>({
         />
         <div className="flex gap-2">
 
-        {tableData && Array.isArray(tableData) && tableData.map((item: any) => (
+        {tableData && Array.isArray(tableData) && tableData.map((item:any,index:number) => (
           <Button
-            key={item.Page} 
+            key={index} 
             variant="outline"
             size="sm"
           >
