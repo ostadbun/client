@@ -31,7 +31,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
 }
 const relationData = async () => {
-  const res = await fetch("http://localhost:4000/relations")
+  const res = await fetch("http://localhost:4000/3")
   const resData = await res.json()
   return resData
 }
@@ -67,7 +67,7 @@ export function DataTable<TData, TValue>({
 
   return isLoading ? (
     <Button>
-      please wait
+      لطفا منتظر بمانید
     </Button>
   ) : (
     <div className="mx-auto w-full  rounded-md border">
@@ -85,12 +85,12 @@ export function DataTable<TData, TValue>({
 
         {tableData && Array.isArray(tableData) && tableData.map((item: any) => (
           <Button
-            key={item.id} 
+            key={item.Page} 
             variant="outline"
             size="sm"
           >
             
-            {item.name} 
+            {item.label} 
           </Button>
         ))}
         </div>
@@ -128,20 +128,18 @@ export function DataTable<TData, TValue>({
           ) : (
             <TableRow>
               <TableCell colSpan={columns?.length}>
-                No results.
+                داده ای یافت نشد
               </TableCell>
             </TableRow>
           )}
         </TableBody>
       </Table>
       <div className="flex items-center justify-between px-2 py-4">
-        {/* left side */}
         <div className="text-sm text-muted-foreground">
           {table.getFilteredSelectedRowModel()?.rows?.length} از{" "}
           {table.getFilteredRowModel()?.rows?.length} ردیف انتخاب شده.
         </div>
 
-        {/* right side */}
         <div className="flex items-center space-x-2">
           <Button
             variant="outline"

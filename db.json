@@ -1,9 +1,18 @@
-{
-    "relations":{
-        "professorsRelations":"روابط استاد",
-        "universitiesRelations":"روابط دانشگاه ",
-        "majorsRelations":"روابط رشته",
-        "lessonsRelations":"روابط درس"
-        
-    }
-}
+[
+  {
+    "page": "/professors",
+    "label": "روابط استاد"
+  },
+  {
+    "page": "/universities",
+    "label": "روابط دانشگاه"
+  },
+  {
+    "page": "/majors",
+    "label": "روابط رشته"
+  },
+  {
+    "page": "/lessons",
+    "label": "روابط درس"
+  }
+]
