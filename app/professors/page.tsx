@@ -1,29 +1,29 @@
 "use client"
 
 import { DataTable } from "@/components/data-table"
-import { columns, Payment } from "./columns"
+import { columns, tableData } from "./columns"
 import ProfessorsInfo from "./professorsInfo"
 
-const data: Payment[] = [
+const data: tableData[] = [
   {
-    status: "success",
-    name: "استاد شهشهانی"
+    "وضعیت": "ناموفق",
+    name: "پایگاه داده",
   },
   {
-    status: "success",
-    name: "استاد شهشهانی"
+    "وضعیت": "ناموفق",
+    name: "پایگاه داده",
   },
   {
-    status: "processing",
-    name: "استاد شهشهانی"
+    "وضعیت": "ناموفق",
+    name: "پایگاه داده",
   },
   {
-    status: "success",
-    name: "استاد شهشهانی"
+    "وضعیت": "ناموفق",
+    name: "پایگاه داده",
   },
   {
-    status: "failed",
-    name: "استاد شهشهانی"
+    "وضعیت": "ناموفق",
+    name: "پایگاه داده",
   },
 ]
 

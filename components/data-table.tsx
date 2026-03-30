@@ -25,15 +25,17 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import React from "react"
 import useSWR from "swr"
+import { get } from "https"
+import axios from "axios"
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
 }
-const relationData = async () => {
-  const res = await fetch("http://localhost:4000/0")
-  const resData = await res.json()
-  return resData
+const relationData = async (itemid:number) => {
+  const res = await axios.get(`http://localhost:4000/2`)
+  return res.data
 }
+
 
 export function DataTable<TData, TValue>({
   columns,
@@ -88,7 +90,7 @@ export function DataTable<TData, TValue>({
             variant="outline"
             size="sm"
           >
-            
+          
             {item.label} 
           </Button>
         ))}

@@ -5,13 +5,13 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
 import { MoreHorizontal, ArrowUpDown } from "lucide-react"
 
-export type Payment = {
-  status: "success" | "processing" | "failed"
+export type tableData = {
+  "وضعیت": "موفق" | "در حال پردازش" | "ناموفق"
   name: string
   amount: number
 }
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<tableData>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -30,8 +30,8 @@ export const columns: ColumnDef<Payment>[] = [
     ),
   },
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "وضعیت",
+    header: "وضعیت",
   },
   {
     accessorKey: "name",
@@ -44,18 +44,6 @@ export const columns: ColumnDef<Payment>[] = [
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
-  },
-  {
-    accessorKey: "amount",
-    header: "Amount",
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"))
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount)
-      return <div>{formatted}</div>
-    },
   },
   {
     id: "actions",
