@@ -8,7 +8,7 @@ import { MoreHorizontal, ArrowUpDown } from "lucide-react"
 export type tableData = {
   "وضعیت": "موفق" | "در حال پردازش" | "ناموفق"
   name: string
-  amount: number
+  id: number
 }
 
 export const columns: ColumnDef<tableData>[] = [

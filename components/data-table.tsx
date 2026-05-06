@@ -31,7 +31,7 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
 }
-const relationData = async (itemid:number) => {
+const relationData = async (itemid: number) => {
   const res = await axios.get(`http://localhost:4000/2`)
   return res.data
 }
@@ -65,7 +65,7 @@ export function DataTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   })
-  
+
   return isLoading ? (
     <Button>
       لطفا منتظر بمانید
@@ -84,16 +84,16 @@ export function DataTable<TData, TValue>({
         />
         <div className="flex gap-2">
 
-        {tableData && Array.isArray(tableData) && tableData.map((item:any,index:number) => (
-          <Button
-            key={index} 
-            variant="outline"
-            size="sm"
-          >
-          
-            {item.label} 
-          </Button>
-        ))}
+          {tableData && Array.isArray(tableData) && tableData.map((item: any, index: number) => (
+            <Button
+              key={index}
+              variant="outline"
+              size="sm"
+            >
+
+              {item.label}
+            </Button>
+          ))}
         </div>
       </div>
       <Table>

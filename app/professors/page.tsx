@@ -41,8 +41,7 @@ export default function Page() {
       />
 
       <div className="mx-auto max-w-screen-xl px-6 grid grid-cols-2 gap-8">
-        <DataTable columns={columns} data={data} />
-        <DataTable columns={columns} data={data} />
+
       </div>
 
     </div>

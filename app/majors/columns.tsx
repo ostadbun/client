@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button"
 import { MoreHorizontal, ArrowUpDown } from "lucide-react"
 
 export type tableData = {
-  id: 1|2|3|4|5
-  name:string
+  id: 1 | 2 | 3 | 4 | 5
+  name: string
   "وضعیت": "موفق" | "در حال پردازش" | "ناموفق"
 }
 

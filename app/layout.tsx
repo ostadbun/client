@@ -17,7 +17,7 @@ const arad = localFont({
 
 });
 
-export const metadata:Metadata = {
+export const metadata: Metadata = {
   title: 'OstadBun',
   description: 'پلتفرم یادگیری با استادبُن',
   icons: {
@@ -50,7 +50,6 @@ export default function RootLayout({
           <DirectionProvider direction="rtl">
             <Toaster position="top-center" theme="dark" />
             <SidebarProvider>
-              {/* <AppSidebar /> */}
               <main className=" w-full">
 
                 {children}
