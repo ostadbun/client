@@ -1,4 +1,3 @@
-"use client"
 
 import {
   ColumnDef,
@@ -25,22 +24,30 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import React from "react"
+import useSWR from "swr"
+import { get } from "https"
+import axios from "axios"
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
 }
+const relationData = async (itemid: number) => {
+  const res = await axios.get(`http://localhost:4000/2`)
+  return res.data
+}
+
 
 export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
-const [columnFilters, setColumnFilters] =
-  React.useState<ColumnFiltersState>([])
+  const [columnFilters, setColumnFilters] =
+    React.useState<ColumnFiltersState>([])
   const [rowSelection, setRowSelection] = React.useState({})
-
+  const { data: tableData, isLoading } = useSWR("relations", relationData)
   const table = useReactTable({
-    data,
+    data: tableData || [],
     columns,
     state: {
       sorting,
@@ -59,15 +66,36 @@ const [columnFilters, setColumnFilters] =
     getPaginationRowModel: getPaginationRowModel(),
   })
 
-  return (
+  return isLoading ? (
+    <Button>
+      لطفا منتظر بمانید
+    </Button>
+  ) : (
     <div className="mx-auto w-full  rounded-md border">
-      <Input
-        placeholder="Filter emails..."
-        value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
-        onChange={(event) =>
-          table.getColumn("email")?.setFilterValue(event.target.value)
-        }
-      />
+      <div className="flex items-center justify-between p-3">
+        <Input
+          className="w-10/12"
+          placeholder="نمایش بر اساس نام . . ."
+          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("name")?.setFilterValue(event.target.value)
+          }
+
+        />
+        <div className="flex gap-2">
+
+          {tableData && Array.isArray(tableData) && tableData.map((item: any, index: number) => (
+            <Button
+              key={index}
+              variant="outline"
+              size="sm"
+            >
+
+              {item.label}
+            </Button>
+          ))}
+        </div>
+      </div>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -101,39 +129,37 @@ const [columnFilters, setColumnFilters] =
           ) : (
             <TableRow>
               <TableCell colSpan={columns?.length}>
-                No results.
+                داده ای یافت نشد
               </TableCell>
             </TableRow>
           )}
         </TableBody>
       </Table>
-<div className="flex items-center justify-between px-2 py-4">
-  {/* left side */}
-  <div className="text-sm text-muted-foreground">
-    {table.getFilteredSelectedRowModel()?.rows?.length} of{" "}
-    {table.getFilteredRowModel()?.rows?.length} row(s) selected.
-  </div>
+      <div className="flex items-center justify-between px-2 py-4">
+        <div className="text-sm text-muted-foreground">
+          {table.getFilteredSelectedRowModel()?.rows?.length} از{" "}
+          {table.getFilteredRowModel()?.rows?.length} ردیف انتخاب شده.
+        </div>
 
-  {/* right side */}
-  <div className="flex items-center space-x-2">
-    <Button
-      variant="outline"
-      size="sm"
-      onClick={() => table.previousPage()}
-      disabled={!table.getCanPreviousPage()}
-    >
-      Previous
-    </Button>
-    <Button
-      variant="outline"
-      size="sm"
-      onClick={() => table.nextPage()}
-      disabled={!table.getCanNextPage()}
-    >
-      Next
-    </Button>
-  </div>
-</div>
+        <div className="flex items-center space-x-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            قبلی
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            بعدی
+          </Button>
+        </div>
+      </div>
     </div>
   )
 }

@@ -1,6 +1,8 @@
 import { Separator } from "@/components/ui/separator"
 import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
+import { DataTable } from "@/components/data-table"
+import { columns, tableData } from "./columns"
 
 type ProfessorsInfoProps = {
   address: string
@@ -10,6 +12,30 @@ type ProfessorsInfoProps = {
   major: string
   imageSrc: string
 }
+
+
+const data: tableData[] = [
+  {
+    "وضعیت": "ناموفق",
+    name: "پایگاه داده",
+  },
+  {
+    "وضعیت": "ناموفق",
+    name: "پایگاه داده",
+  },
+  {
+    "وضعیت": "ناموفق",
+    name: "پایگاه داده",
+  },
+  {
+    "وضعیت": "ناموفق",
+    name: "پایگاه داده",
+  },
+  {
+    "وضعیت": "ناموفق",
+    name: "پایگاه داده",
+  },
+]
 
 const ProfessorsInfo = ({
   address,
@@ -23,7 +49,7 @@ const ProfessorsInfo = ({
     <div className="flex justify-center mb-8">
       <Card className="w-full max-w-3xl">
         <CardContent className="p-6 space-y-6">
-          
+
           <div className="flex justify-center">
             <Image
               width={200}
@@ -69,7 +95,11 @@ const ProfessorsInfo = ({
               <span className="text-muted-foreground">{major}</span>
             </div>
           </div>
-
+            <div>
+          <DataTable columns={columns} data={data} />
+          <br/>
+        <DataTable columns={columns} data={data} />
+            </div>
         </CardContent>
       </Card>
     </div>

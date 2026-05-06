@@ -43,7 +43,7 @@ const page = () => {
                 onValueChange={handleSelect}
             >
 
-                <div className="my-6">
+                <div className="my-6 mt-32">
                     <h2
                         className=" text-[2rem] sm:text-[3rem] md:text-[2rem] font-extrabold text-center bg-linear-to-t from-[black]/60 to-[black] dark:from-[white]/60 dark:to-[pink]/30 text-transparent bg-clip-text"
                     >
@@ -55,7 +55,7 @@ const page = () => {
 
 
 
-                <ComboboxInput placeholder="یک مورد انتخاب کنید" className={"h-14"} />
+                <ComboboxInput placeholder="یک مورد انتخاب کنید" className="h-14" />
                 <ComboboxContent>
                     <ComboboxEmpty>موردی یافت نشد.</ComboboxEmpty>
                     <ComboboxList >

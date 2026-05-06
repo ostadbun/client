@@ -1,45 +1,45 @@
 "use client"
 
 import { DataTable } from "@/components/data-table"
-import { columns, Payment } from "./columns"
+import { columns, tableData } from "./columns"
 import LessonInfo from "./lessonInfo"
-const data: Payment[] = [
+const data: tableData[] = [
   {
-    status: "success",
-    email: "ken99@example.com",
-    amount: 316,
+    "وضعیت": "ناموفق",
+    name: "پایگاه داده",
+    id: 2
   },
   {
-    status: "success",
-    email: "abe45@example.com",
-    amount: 242,
+    "وضعیت": "ناموفق",
+    name: "پایگاه داده",
+    id: 3
   },
   {
-    status: "processing",
-    email: "monserrat44@example.com",
-    amount: 837,
+    "وضعیت": "ناموفق",
+    name: "پایگاه داده",
+    id: 4
   },
   {
-    status: "success",
-    email: "silas22@example.com",
-    amount: 874,
+    "وضعیت": "ناموفق",
+    name: "پایگاه داده",
+    id: 5
   },
   {
-    status: "failed",
-    email: "carmella@example.com",
-    amount: 721,
+    "وضعیت": "ناموفق",
+    name: "پایگاه داده",
+    id: 6
   },
 ]
 
 export default function Page() {
   return (
     <div className=" mx-auto py-10">
-      
+
       <LessonInfo level={3} semesterInfo={6} />
 
       <div className="mx-auto max-w-screen-xl pt-24 grid grid-cols-2 gap-8">
-        <DataTable columns={columns} data={data} />
-        <DataTable columns={columns} data={data} />
+        {/* <DataTable columns={columns} data={data} />
+        <DataTable columns={columns} data={data} /> */}
       </div>
 
     </div>

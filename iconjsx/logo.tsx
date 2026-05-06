@@ -1,6 +1,4 @@
 "use client"
-import useThemeIsDark from "@/hooks/usetheme";
-import { useTheme } from "next-themes";
 
 export const OSBN = () => {
     return (

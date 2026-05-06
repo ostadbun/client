@@ -25,10 +25,8 @@ interface Entity {
 const fetcher = async (url: string): Promise<Entity[]> => {
   const res = await api.get(url)
 
-  // اگر API مستقیم آرایه برگردونه
   if (Array.isArray(res.data)) return res.data
 
-  // اگر داخل university باشه
   if (res.data.university) return res.data.university
 
   return []
@@ -57,7 +55,6 @@ const Page = () => {
 
   return (
     <div>
-      {/* Search */}
       <div className="w-10/12 md:w-6/12 mx-auto mt-12">
         <form onSubmit={request} className="flex gap-4 flex-wrap w-full">
           <Input
@@ -71,19 +68,16 @@ const Page = () => {
         </form>
       </div>
 
-      {/* Loading */}
       {isLoading && (
         <div className="text-center mt-8">loading...</div>
       )}
 
-      {/* Error */}
       {error && (
         <div className="text-center mt-8 text-red-500">
           error loading data
         </div>
       )}
 
-      {/* Data */}
       {data && (
         <div className="mt-10 w-10/12 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {data.length === 0 ? (

@@ -73,7 +73,7 @@ export function NavProjects({
             </DropdownMenu>
           </SidebarMenuItem>
         ))}
-     
+
       </SidebarMenu>
     </SidebarGroup>
   )

@@ -1,41 +1,36 @@
 "use client"
 
 import { DataTable } from "@/components/data-table"
-import { columns, Payment } from "./columns"
+import { columns, tableData } from "./columns"
 import ProfessorsInfo from "./professorsInfo"
 
-const data: Payment[] = [
+const data: tableData[] = [
   {
-    status: "success",
-    email: "ken99@example.com",
-    amount: 316,
+    "وضعیت": "ناموفق",
+    name: "پایگاه داده",
   },
   {
-    status: "success",
-    email: "abe45@example.com",
-    amount: 242,
+    "وضعیت": "ناموفق",
+    name: "پایگاه داده",
   },
   {
-    status: "processing",
-    email: "monserrat44@example.com",
-    amount: 837,
+    "وضعیت": "ناموفق",
+    name: "پایگاه داده",
   },
   {
-    status: "success",
-    email: "silas22@example.com",
-    amount: 874,
+    "وضعیت": "ناموفق",
+    name: "پایگاه داده",
   },
   {
-    status: "failed",
-    email: "carmella@example.com",
-    amount: 721,
+    "وضعیت": "ناموفق",
+    name: "پایگاه داده",
   },
 ]
 
 export default function Page() {
   return (
     <div className=" mx-auto py-10">
-      
+
       <ProfessorsInfo
         imageSrc="https://blog.faradars.org/wp-content/uploads/2024/12/siavash-shahshahani.jpg"
         teachingYears={4}
@@ -46,8 +41,7 @@ export default function Page() {
       />
 
       <div className="mx-auto max-w-screen-xl px-6 grid grid-cols-2 gap-8">
-        <DataTable columns={columns} data={data} />
-        <DataTable columns={columns} data={data} />
+
       </div>
 
     </div>
