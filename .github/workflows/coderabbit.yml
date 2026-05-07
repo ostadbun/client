@@ -1,0 +1,19 @@
+# .github/workflows/coderabbit.yml
+name: CodeRabbit
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  coderabbit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    steps:
+      - name: CodeRabbit Review
+        uses: coderabbitai/ai-pr-reviewer@latest
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
