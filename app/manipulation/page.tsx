@@ -8,7 +8,6 @@ import {
     ComboboxItem,
     ComboboxList,
 } from "@/components/ui/combobox"
-import { SidebarTrigger } from "@/components/ui/sidebar"
 import { useRouter } from "next/navigation"
 
 const page = () => {

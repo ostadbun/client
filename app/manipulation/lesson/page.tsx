@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/select"
 import usehardness from "@/hooks/use-hardness"
 import { sileo } from "sileo"
-import { api } from "@/app/utils/api/base"
+import { api } from "@/utils/api/base"
 
 type FormValues = {
     name: string

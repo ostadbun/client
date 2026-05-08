@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form"
 import useCities from "@/hooks/usecities"
 import { sileo } from "sileo"
-import { api } from "@/app/utils/api/base"
+import { api } from "@/utils/api/base"
 import { UniversityComponent } from "./universityForm"
 
 type FormValues = {
