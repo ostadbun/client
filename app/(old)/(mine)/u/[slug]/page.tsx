@@ -23,7 +23,7 @@ export default async function Page({
 }: {
   params: { slug: string }
 }) {
-  const { slug } = params
+  const { slug } = await params
 
   return (
     <div>My Post: {slug}</div>

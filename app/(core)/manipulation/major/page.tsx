@@ -13,7 +13,7 @@ import {
 import usehardness from "@/hooks/use-hardness"
 import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
-import { api } from "@/app/api/base"
+import { api } from "@/app/utils/api/base"
 import { sileo } from "sileo"
 
 type FormValues = {
