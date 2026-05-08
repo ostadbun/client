@@ -1,5 +1,5 @@
-import { api } from "../utils/api/base";
-import { PendingSubmissionsResponse } from "../entity/entity";
+import { api } from "../../../utils/api/base";
+import { PendingSubmissionsResponse } from "../../../entity/entity";
 
 import {
   Card,

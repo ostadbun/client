@@ -1,6 +1,8 @@
 const page = () => {
     return (
-        <>edit</>
+        <>
+            edit professor
+        </>
     )
 }
 

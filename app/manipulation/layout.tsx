@@ -8,7 +8,9 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
     useProtect()
 
     return (
-        { children }
+        <>
+            {children}
+        </>
     );
 }
 

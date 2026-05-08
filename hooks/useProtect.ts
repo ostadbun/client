@@ -1,11 +1,10 @@
-// hooks/useProtect.ts
 'use client';
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { getCookie } from '@/app/utils/cookie/get';
+import { getCookie } from '@/utils/cookie/get';
 
-export function useProtect(redirectTo: string = '/state-pages/noLogined') {
+export function useProtect(redirectTo: string = '/auth') {
     const router = useRouter();
 
     useEffect(() => {
@@ -16,6 +15,8 @@ export function useProtect(redirectTo: string = '/state-pages/noLogined') {
         if (!isLoggedIn) {
             router.replace(redirectTo);
         }
+
+        
         
     }, [router, redirectTo]);
 }

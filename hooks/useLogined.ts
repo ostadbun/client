@@ -1,7 +1,7 @@
 // hooks/useIsLogin.ts
 'use client';
 
-import { getCookie } from "@/app/utils/cookie/get";
+import { getCookie } from "@/utils/cookie/get";
 import { useEffect, useState } from "react";
 
 interface UseIsLoginReturn {
