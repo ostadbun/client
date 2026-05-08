@@ -1,5 +1,6 @@
 
 import localFont from "next/font/local";
+// @ts-ignore
 import "./globals.css";
 import { DirectionProvider } from "@base-ui/react";
 import { Metadata } from "next";
@@ -19,7 +20,7 @@ const arad = localFont({
 
 export const metadata: Metadata = {
   title: 'OstadBun',
-  description: 'پلتفرم یادگیری با استادبُن',
+  description: 'پلتفرم یادگیری با استادبان',
   icons: {
     icon: '/favicon.ico',
   },

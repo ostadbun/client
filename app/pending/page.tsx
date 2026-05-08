@@ -1,4 +1,4 @@
-import { api } from "../api/base";
+import { api } from "../utils/api/base";
 import { PendingSubmissionsResponse } from "../entity/entity";
 
 import {

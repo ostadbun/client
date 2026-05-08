@@ -1,6 +1,6 @@
 "use client"
 
-import { api } from "@/app/api/base"
+import { api } from "@/app/utils/api/base"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
