@@ -1,14 +1,13 @@
-import { ComponentExample } from "@/components/component-example";
+import { CardExample } from "@/components/component-example";
+
 
 
 export default function Page() {
     return (
-
-        <>
-
-            <ComponentExample />
-            {/* hello */}
-        </>
+<>
+<CardExample/>
+</>
+        
     )
 }
 

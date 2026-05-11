@@ -124,3 +124,7 @@
     @apply bg-background text-foreground;
   }
 }
+.swal2-popup-dark-background {
+  background-color: #232222 !important; /* Set background to black */
+  color: white !important; /* Optionally change text color to white for contrast */
+}
