@@ -8,8 +8,8 @@ export const api = axios.create({
 api.interceptors.request.use((config) => {
     const tkn = typeof window !== "undefined" ? localStorage.getItem("authCode") : null;
     console.log("this is token ",tkn,process.env.APIADDR)
-    const token = `Bearer ${tkn}`
-    if (token) {
+    if (tkn) {
+        const token = `Bearer ${tkn}`
         config.headers.setAuthorization(token)
     }
     console.log(config)

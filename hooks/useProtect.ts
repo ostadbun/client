@@ -7,16 +7,16 @@ import { getCookie } from '@/utils/cookie/get';
 export function useProtect(redirectTo: string = '/auth') {
     const router = useRouter();
 
-    useEffect(() => {
-        const username = getCookie('username');
+//     useEffect(() => {
+//         const username = getCookie('username');
 
-        const isLoggedIn = !!(username);
+//         const isLoggedIn = !!(username);
 
-        if (!isLoggedIn) {
-            router.replace(redirectTo);
-        }
+//         if (!isLoggedIn) {
+//             router.replace(redirectTo);
+//         }
 
         
         
-    }, [router, redirectTo]);
+//     }, [router, redirectTo]);
 }

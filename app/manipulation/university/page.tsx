@@ -60,65 +60,65 @@ export default function Page() {
     const categoryValue = watch("category")
 
     return (
-        // <form onSubmit={handleSubmit(onSubmit)} className="w-8/12 place-self-center pt-20 space-y-6">
-        //     <h2 className="text-3xl font-extrabold text-center">ثبت دانشگاه جدید</h2>
+        <div>
 
-        //     {/* نام درس */}
-        //     <Input placeholder="نام درس" {...register("name", { required: true })} />
-
-
-        //     {/* نام انگلیسی */}
-        //     <Input placeholder="نام انگلیسی" {...register("name_english", { required: true })} />
-
-
-        //     {/* توضیحات */}
-        //     <Textarea placeholder="توضیحات" {...register("description", { required: true })} />
-
-
-        //     {/* توضیحات انگلیسی */}
-        //     <Textarea placeholder="توضیحات انگلیسی" {...register("description_english", { required: true })} />
-
-
-        //     {/* شهر */}
-        //     <Combobox
-        //         items={cities}
-        //         onValueChange={(val) => setValue("city", val as string)}
-        //     >
-        //         <ComboboxInput placeholder="شهر را انتخاب کنید" value={cityValue} readOnly />
-        //         <ComboboxContent>
-        //             <ComboboxEmpty>موردی یافت نشد.</ComboboxEmpty>
-        //             <ComboboxList>
-        //                 {(item) => <ComboboxItem key={item} value={item}>{item}</ComboboxItem>}
-        //             </ComboboxList>
-        //         </ComboboxContent>
-        //     </Combobox>
-        //     {errors.city && <p className="text-red-500">شهر الزامی است</p>}
-
-        //     {/* دسته بندی */}
-        //     <Combobox
-        //         items={categories}
-        //         onValueChange={(val) => setValue("category", val as string)}
-        //     >
-        //         <ComboboxInput placeholder="نوع دانشگاه خود را انتخاب کنید" value={categoryValue} readOnly />
-        //         <ComboboxContent>
-        //             <ComboboxEmpty>موردی یافت نشد.</ComboboxEmpty>
-        //             <ComboboxList>
-        //                 {(item) => <ComboboxItem key={item} value={item}>{item}</ComboboxItem>}
-        //             </ComboboxList>
-        //         </ComboboxContent>
-        //     </Combobox>
-
-
-        //     {/* آدرس عکس */}
-        //     <Input placeholder="آدرس عکس" {...register("image_url", { required: true })} />
-
-
-        //     <Button type="submit" className="w-full">ثبت</Button>
-        // </form>
-            <div>
-            
-            <UniversityComponent/>
-            </div>
+            <UniversityComponent />
+        </div>
 
     )
 }
+// <form onSubmit={handleSubmit(onSubmit)} className="w-8/12 place-self-center pt-20 space-y-6">
+//     <h2 className="text-3xl font-extrabold text-center">ثبت دانشگاه جدید</h2>
+
+//     {/* نام درس */}
+//     <Input placeholder="نام درس" {...register("name", { required: true })} />
+
+
+//     {/* نام انگلیسی */}
+//     <Input placeholder="نام انگلیسی" {...register("name_english", { required: true })} />
+
+
+//     {/* توضیحات */}
+//     <Textarea placeholder="توضیحات" {...register("description", { required: true })} />
+
+
+//     {/* توضیحات انگلیسی */}
+//     <Textarea placeholder="توضیحات انگلیسی" {...register("description_english", { required: true })} />
+
+
+//     {/* شهر */}
+//     <Combobox
+//         items={cities}
+//         onValueChange={(val) => setValue("city", val as string)}
+//     >
+//         <ComboboxInput placeholder="شهر را انتخاب کنید" value={cityValue} readOnly />
+//         <ComboboxContent>
+//             <ComboboxEmpty>موردی یافت نشد.</ComboboxEmpty>
+//             <ComboboxList>
+//                 {(item) => <ComboboxItem key={item} value={item}>{item}</ComboboxItem>}
+//             </ComboboxList>
+//         </ComboboxContent>
+//     </Combobox>
+//     {errors.city && <p className="text-red-500">شهر الزامی است</p>}
+
+//     {/* دسته بندی */}
+//     <Combobox
+//         items={categories}
+//         onValueChange={(val) => setValue("category", val as string)}
+//     >
+//         <ComboboxInput placeholder="نوع دانشگاه خود را انتخاب کنید" value={categoryValue} readOnly />
+//         <ComboboxContent>
+//             <ComboboxEmpty>موردی یافت نشد.</ComboboxEmpty>
+//             <ComboboxList>
+//                 {(item) => <ComboboxItem key={item} value={item}>{item}</ComboboxItem>}
+//             </ComboboxList>
+//         </ComboboxContent>
+//     </Combobox>
+
+
+//     {/* آدرس عکس */}
+//     <Input placeholder="آدرس عکس" {...register("image_url", { required: true })} />
+
+
+//     <Button type="submit" className="w-full">ثبت</Button>
+// </form>
