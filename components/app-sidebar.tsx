@@ -16,6 +16,8 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react"
 import { LayoutBottomIcon, AudioWave01Icon, CommandIcon, ComputerTerminalIcon, RoboticIcon, BookOpen02Icon, Settings05Icon, CropIcon, PieChartIcon, MapsIcon } from "@hugeicons/core-free-icons"
 import { OSBN } from "@/iconjsx/logo"
+import useCounterStore from "@/store/counterStore"
+import useUserAuthontication from "@/store/useUserAuthontication"
 
 
 let data = {
@@ -117,9 +119,6 @@ let data = {
 
 
 
-
-// if this use is admin
-
 data.navMain.push(
 
   {
@@ -143,6 +142,13 @@ data.navMain.push(
 )
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+
+  const username = useUserAuthontication()
+  data.user.name = username.username
+
+
+  console.log(username.username,username.isLogin,"this is")
+
   return (
     <Sidebar collapsible="icon" {...props} side="right" dir="rtl" variant="floating">
       <SidebarHeader>
