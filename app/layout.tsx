@@ -51,7 +51,7 @@ export default function RootLayout({
           <DirectionProvider direction="rtl">
             <Toaster position="top-center" theme="dark" />
             <SidebarProvider>
-              <main className=" w-full">
+              <main className=" w-full float-right">
 
                 {children}
               </main>
