@@ -173,15 +173,31 @@ export default function Page() {
 
               <div className="border-dashed border border-white/10 w-full absolute left-0 -z-10"></div>
 
-              <div className="border-r border-l border-dashed  border-white/10 py-6">
-                <div className="absolute -translate-y-[2.4rem] translate-x-[.37rem] text-2xl opacity-75">
-                  +
+              <div className="border-r border-l border-dashed  border-white/10 py-6 relative">
+
+
+
+                <div className="absolute -top-3 -right-[.53rem]">
+                  <div className="relative flex justify-center items-center size-4  text-2xl text-gray-300">
+                    <div className="w-4 h-[.1rem] bg-white/65 absolute"></div>
+                    <div className="w-[.1rem] h-4 bg-white/65 absolute"></div>
+                  </div>
                 </div>
+
+
+                <div className="absolute -bottom-3 -left-[.52rem]">
+                  {/* <div className="relative font-medium text-2xl">
+                    +
+                  </div> */}
+                  <div className="relative flex justify-center items-center size-4  text-2xl text-gray-300">
+                    <div className="w-4 h-[.1rem] bg-white/65 absolute"></div>
+                    <div className="w-[.1rem] h-4 bg-white/65 absolute"></div>
+                  </div>
+                </div>
+
                 <TUniversity data={table_data} />
               </div>
-              <div className="absolute left-0 translate-x-[7.9dvw] translate-y-[-.9rem]  text-2xl opacity-75">
-                +
-              </div>
+
               <div className="border-dashed border border-white/10 w-full absolute left-0 -z-10"></div>
 
             </div>
