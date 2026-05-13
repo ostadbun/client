@@ -18,6 +18,7 @@ export interface ITableData {
         rowTitle: string[]
         cellData: string[][]
     }
+    title: string
     loadMorefn: () => void
     haveMoreData: boolean
 }
@@ -52,9 +53,8 @@ export const Table = (data: ITableData) => {
                 <div className=" size-full w-full px-1 mx-auto">
 
                     <h2 className="text-2xl mt-6 mr-10 font-black">
-                        عنوان
+                        {data.title}
                     </h2>
-
 
 
                     <Input className="my-4" />

@@ -5,9 +5,13 @@ import { CatIcon, Map } from "lucide-react"
 import Image from "next/image"
 import { columns, tableData } from "./columns"
 import { DataTable } from "@/components/data-table"
-import { Card } from "@/components/ui/card"
+import { Card, CardFooter } from "@/components/ui/card"
 import { TUniversity } from "./tab"
 import { Row } from "@tanstack/react-table"
+import { Table } from "@/components/osbn/table"
+import { Input } from "@/components/ui/input"
+import Link from "next/link"
+import { CardItrationView, ICardItrationData } from "@/components/osbn/cardItreation"
 
 
 
@@ -97,13 +101,44 @@ const repeat = [
 ]
 
 
+
+
+const CardData: ICardItrationData = {
+
+  detail: {
+    category: 'اساتید',
+    data: [
+      { title: 'محمد رضا یمقانی', button: { url: 'yamaghani', name: 'یمق' } },
+      { title: 'سید علی حسینی', button: { url: 'hoseyni', name: 'حسینی' } },
+      { title: 'رضا کریمی', button: { url: 'karimi', name: 'کریمی' } },
+      { title: 'مریم رضایی', button: { url: 'rezaei', name: 'رضایی' } },
+      { title: 'احمد نوری', button: { url: 'nouri', name: 'نوری' } },
+      { title: 'زهرا موسوی', button: { url: 'mousavi', name: 'موسوی' } },
+      { title: 'علیرضا صادقی', button: { url: 'sadeghi', name: 'صادقی' } },
+      { title: 'فاطمه محمدی', button: { url: 'mohammadi', name: 'محمدی' } },
+      { title: 'حسن تقوی', button: { url: 'taghavi', name: 'تقوی' } },
+      { title: 'نگین حسنی', button: { url: 'hasani', name: 'حسنی' } },
+      { title: 'مهدی عابدی', button: { url: 'abedi', name: 'عابدی' } },
+      { title: 'سمیه کاظمی', button: { url: 'kazemi', name: 'کاظمی' } },
+      { title: 'پیمان قاسمی', button: { url: 'ghasemi', name: 'قاسمی' } },
+      { title: 'لیلا جعفری', button: { url: 'jafari', name: 'جعفری' } },
+      { title: 'امیر رحمانی', button: { url: 'rahmani', name: 'رحمانی' } },
+      { title: 'نرگس احمدی', button: { url: 'ahmadi', name: 'احمدی' } },
+      { title: 'بهرام فتحی', button: { url: 'fathi', name: 'فتحی' } },
+      { title: 'الهه مرادی', button: { url: 'moradi', name: 'مرادی' } },
+      { title: 'کیوان سلطانی', button: { url: 'soltan', name: 'سلطانی' } },
+      { title: 'سارا امینی', button: { url: 'amini', name: 'امینی' } }
+    ],
+  }
+}
+
 export default function Page() {
   return (
 
     <>
       <div className="flex h-auto justify-start md:justify-center items-start w-full px-4 md:w-10/12 mx-auto mt-14 gap-x-10 flex-wrap">
 
-        <div className="w-full h-70 md:w-4/12 mb-14 rounded-2xl overflow-hidden border border-white border-dashed">
+        <div className="w-full h-70 md:w-4/12 mb-14 rounded-2xl overflow-hidden border border-foreground border-dashed">
           <Image src={"/images/university.webp"} width={300} height={200} alt="uni" className=" object-cover size-full opacity-75" />
         </div>
 
@@ -155,57 +190,11 @@ export default function Page() {
       </div>
 
       <div className="border-t-2 border-dashed w-10/12 mx-auto pt-10 mt-10">
-        <h3 className="text-4xl md:text-start text-center font-black w-full mb-6">
-          روابط
-        </h3>
 
 
-
-
-        {repeat.map((v, i) => {
-          return (
-            <div key={i}>
-
-              <h3 className="text-3xl md:text-start text-center font-extrabold w-full my-14">
-
-                به {v} :
-              </h3>
-
-              <div className="border-dashed border border-white/10 w-full absolute left-0 -z-10"></div>
-
-              <div className="border-r border-l border-dashed  border-white/10 py-6 relative">
-
-
-
-                <div className="absolute -top-3 -right-[.53rem]">
-                  <div className="relative flex justify-center items-center size-4  text-2xl text-gray-300">
-                    <div className="w-4 h-[.1rem] bg-white/65 absolute"></div>
-                    <div className="w-[.1rem] h-4 bg-white/65 absolute"></div>
-                  </div>
-                </div>
-
-
-                <div className="absolute -bottom-3 -left-[.52rem]">
-                  {/* <div className="relative font-medium text-2xl">
-                    +
-                  </div> */}
-                  <div className="relative flex justify-center items-center size-4  text-2xl text-gray-300">
-                    <div className="w-4 h-[.1rem] bg-white/65 absolute"></div>
-                    <div className="w-[.1rem] h-4 bg-white/65 absolute"></div>
-                  </div>
-                </div>
-
-                <TUniversity data={table_data} />
-              </div>
-
-              <div className="border-dashed border border-white/10 w-full absolute left-0 -z-10"></div>
-
-            </div>
-          )
-        })}
-
-
-
+        <CardItrationView detail={CardData.detail} />
+        <CardItrationView detail={CardData.detail} />
+        <CardItrationView detail={CardData.detail} />
 
 
 
