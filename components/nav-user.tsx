@@ -23,6 +23,8 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react"
 import { UnfoldMoreIcon, SparklesIcon, CheckmarkBadgeIcon, CreditCardIcon, NotificationIcon, LogoutIcon } from "@hugeicons/core-free-icons"
 import useUserAuthontication from "@/store/useUserAuthontication"
+import { Moon, Sun } from "lucide-react"
+import { useTheme } from "next-themes"
 
 export function NavUser({
   user,
@@ -41,6 +43,7 @@ export function NavUser({
   const Logout = () => {
     t.Logout()
   }
+  const c = useTheme()
 
 
   return (
@@ -69,15 +72,21 @@ export function NavUser({
             sideOffset={4}
           >
             <DropdownMenuGroup>
-              <DropdownMenuLabel className="p-0 font-normal">
+              <DropdownMenuLabel className="p-0  font-normal">
                 <div className="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
                   <Avatar>
                     <AvatarImage src={user.avatar} alt={user.name} />
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
-                  <div className="grid flex-1 text-start text-sm leading-tight">
-                    <span className="truncate font-medium">{user.name}</span>
-                    <span className="truncate text-xs">{user.email}</span>
+                  <div className="flex flex-col w-full">
+                    <div className="flex justify-end gap-3 w-full">
+                      <Moon onClick={() => c.setTheme('dark')} />
+                      <Sun onClick={() => c.setTheme('light')} />
+                    </div>
+                    <div className="grid flex-1 text-start text-sm leading-tight">
+                      <span className="truncate font-medium">{user.name}</span>
+                      <span className="truncate text-xs">{user.email}</span>
+                    </div>
                   </div>
                 </div>
               </DropdownMenuLabel>
@@ -105,7 +114,7 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={()=>{Logout()}}>
+            <DropdownMenuItem onClick={() => { Logout() }}>
               <HugeiconsIcon icon={LogoutIcon} strokeWidth={2} />
               خروج
             </DropdownMenuItem>

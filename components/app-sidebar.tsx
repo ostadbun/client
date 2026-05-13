@@ -20,6 +20,7 @@ import useCounterStore from "@/store/counterStore"
 import useUserAuthontication from "@/store/useUserAuthontication"
 import { useTheme } from "next-themes"
 import { TeamSwitcher } from "./team-switcher"
+import { Moon, Sun } from "lucide-react"
 
 
 let data = {
@@ -145,8 +146,6 @@ data.navMain.push(
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
-  const t = useTheme()
-
   const username = useUserAuthontication()
   data.user.name = username.username
 
@@ -165,13 +164,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter>
-      <div onClick={() => { t.setTheme('dark') }}>
-        dark
-      </div>
-      <br />
-      <div onClick={() => { t.setTheme('light') }}>
-        light
-      </div>
       <SidebarRail />
     </Sidebar>
   )
