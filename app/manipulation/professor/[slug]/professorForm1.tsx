@@ -30,7 +30,32 @@ import { Back } from "@hugeicons/core-free-icons"
 import { useRouter } from "next/navigation"
 import { Plus, X } from "lucide-react"
 
+const defaultProfessorData: FormValues = {
+    name: "دکتر علی رضایی",
+    name_english: "ali rezai",
+    description: "عضو هیئت علمی دانشگاه تهران با بیش از 15 سال سابقه تدریس در حوزه یادگیری ماشین و پردازش زبان طبیعی",
+    description_english: "a",
+    image_url: "https://picsum.photos/seed/prof1/200/200",
+    experienceYears: 15, // بر اساس توضیحات "بیش از 15 سال سابقه"
+    education_history: [
+        {
+            year: "1398",
+            field: "هوش مصنوعی",
+            degree: "دکترا",
+            university: "دانشگاه صنعتی شریف"
+        },
+        {
+            year: "1393",
+            field: "مهندسی کامپیوتر",
+            degree: "کارشناسی ارشد",
+            university: "دانشگاه تهران"
+        }
+    ].map(({ year, ...rest }) => rest) // فیلد year در type شما نیست
+}
 
+interface ProfessorProps {
+    initialData?: FormValues
+}
 
 type Education = {
     degree: string
@@ -48,7 +73,7 @@ type FormValues = {
     education_history: Education[]
 }
 
-export function ProfessorComponent() {
+export function ProfessorComponent1() {
   return (
     <ExampleWrapper>
       <Professor />
@@ -57,15 +82,18 @@ export function ProfessorComponent() {
 }
 
 
-export default function Professor() {
+export default function Professor({ initialData = defaultProfessorData }: ProfessorProps) {
+        const { register, control, handleSubmit } = useForm<FormValues>({
+        defaultValues: initialData,
+    })
     const [isLoading, setIsLoading] = React.useState(false)
     const degrees = ["کارشناسی", "کارشناسی ارشد", "دکترا"]
     const router = useRouter()
-    const { register, control, handleSubmit } = useForm<FormValues>({
-        defaultValues: {
-            education_history: [],
-        },
-    })
+    // const { register, control, handleSubmit } = useForm<FormValues>({
+    //     defaultValues: {
+    //         education_history: [],
+    //     },
+    // })
 
     const { fields, append, remove } = useFieldArray({
         control,
@@ -111,12 +139,13 @@ export default function Professor() {
 
 
             const response = await api.post(`/manipulation/professor/`, data)
-
             router.push('/console')
             console.log(response.data)
 
         } catch (error) {
             console.log(error);
+            sileo.error({ title: 'خطا در ذخیره اطلاعات' })
+
 
         } finally {
             setIsLoading(false)

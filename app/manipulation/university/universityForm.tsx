@@ -124,9 +124,9 @@ export default function FormExample() {
 
     <Example className="container w-full  mx-auto ">
       <Card className="flex  flex-col p-4 w-full">
-        <CardTitle className="text-xl font-semibold mb-2">ثبت دانشگاه جدید</CardTitle>
+        <CardTitle className="text-xl font-semibold mb-2">ادیت دانشگاه</CardTitle>
         <CardDescription className="mb-4 text-sm text-gray-600">
-          لطفاً این بخش را تکمیل بفرمایید
+          لطفاً بخش های مورد نظر را ادیت نمایید
         </CardDescription>
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           <FieldGroup>
