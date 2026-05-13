@@ -5,7 +5,7 @@ import * as React from "react"
 import { NavMain } from "@/components/nav-main"
 import { NavProjects } from "@/components/nav-projects"
 import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
+
 import {
   Sidebar,
   SidebarContent,
@@ -16,6 +16,10 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react"
 import { LayoutBottomIcon, AudioWave01Icon, CommandIcon, ComputerTerminalIcon, RoboticIcon, BookOpen02Icon, Settings05Icon, CropIcon, PieChartIcon, MapsIcon } from "@hugeicons/core-free-icons"
 import { OSBN } from "@/iconjsx/logo"
+import useCounterStore from "@/store/counterStore"
+import useUserAuthontication from "@/store/useUserAuthontication"
+import { useTheme } from "next-themes"
+import { TeamSwitcher } from "./team-switcher"
 
 
 let data = {
@@ -117,9 +121,6 @@ let data = {
 
 
 
-
-// if this use is admin
-
 data.navMain.push(
 
   {
@@ -143,6 +144,15 @@ data.navMain.push(
 )
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+
+  const t = useTheme()
+
+  const username = useUserAuthontication()
+  data.user.name = username.username
+
+
+  console.log(username.username, username.isLogin, "this is")
+
   return (
     <Sidebar collapsible="icon" {...props} side="right" dir="rtl" variant="floating">
       <SidebarHeader>
@@ -155,6 +165,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter>
+      <div onClick={() => { t.setTheme('dark') }}>
+        dark
+      </div>
+      <br />
+      <div onClick={() => { t.setTheme('light') }}>
+        light
+      </div>
       <SidebarRail />
     </Sidebar>
   )

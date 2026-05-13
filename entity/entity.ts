@@ -68,3 +68,5 @@ export interface Professor_educationHistory {
     degree: string
     major: string
 }
+
+

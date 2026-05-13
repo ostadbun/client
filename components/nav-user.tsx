@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/sidebar"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { UnfoldMoreIcon, SparklesIcon, CheckmarkBadgeIcon, CreditCardIcon, NotificationIcon, LogoutIcon } from "@hugeicons/core-free-icons"
+import useUserAuthontication from "@/store/useUserAuthontication"
 
 export function NavUser({
   user,
@@ -33,6 +34,15 @@ export function NavUser({
   }
 }) {
   const { isMobile } = useSidebar()
+
+
+
+  const t = useUserAuthontication()
+  const Logout = () => {
+    t.Logout()
+  }
+
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -95,9 +105,9 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={()=>{Logout()}}>
               <HugeiconsIcon icon={LogoutIcon} strokeWidth={2} />
-              Log out
+              خروج
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
