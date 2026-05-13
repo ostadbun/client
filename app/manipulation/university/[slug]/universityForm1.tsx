@@ -1,3 +1,4 @@
+"use client"
 import * as React from "react"
 
 import {
@@ -30,7 +31,7 @@ import { useRouter } from "next/navigation"
 
 
 
-export function UniversityComponent() {
+export function UniversityComponent1() {
   return (
     <ExampleWrapper>
       <FormExample />
@@ -38,11 +39,11 @@ export function UniversityComponent() {
   )
 }
 const cityOption = [
-  "تهران",
-  "رشت",
-  "اصفحان",
-  "شیراز",
-  "مشهد",
+  "tehran",
+  "rasht",
+  "qom",
+  "shiraz",
+  "mashhad",
 ] as const
 const universityOption = [
   "دانشگاه دولتی",
@@ -68,13 +69,13 @@ export default function FormExample() {
   const router = useRouter()
   const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<FormValues>({
     defaultValues: {
-      name: "",
-      name_english: "",
-      description: "",
-      description_english: "",
-      city: "",
-      category: "",
-      image_url: "",
+      name: "شریف",
+      name_english: "sharif",
+      description: "مرکز ممتاز آموزش مهندسی و علوم پایه در ایران",
+      description_english: "best of all",
+      city: "tehran",
+      category: "دولتی",
+      image_url: "https://picsum.photos/seed/sharif/300/200",
     },
   })
   const onSubmit = async (data: FormValues) => {
@@ -124,9 +125,9 @@ export default function FormExample() {
 
     <Example className="container w-full  mx-auto ">
       <Card className="flex  flex-col p-4 w-full">
-        <CardTitle className="text-xl font-semibold mb-2">ادیت دانشگاه</CardTitle>
+        <CardTitle className="text-xl font-semibold mb-2"> ادیت دانشگاه</CardTitle>
         <CardDescription className="mb-4 text-sm text-gray-600">
-          لطفاً بخش های مورد نظر را ادیت نمایید
+                    لطفاً بخش های مورد نظر را ادیت نمایید
         </CardDescription>
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           <FieldGroup>
@@ -179,6 +180,7 @@ export default function FormExample() {
                 <Combobox onValueChange={(value: string | null) => setValue("city", value ?? "")}
                   items={cityOption}>
                   <ComboboxInput
+                  value={watch('city')}
                     {...register("city", { required: true })}
                     id="small-form-framework"
                     placeholder="Select your city"
@@ -205,6 +207,7 @@ export default function FormExample() {
                   items={universityOption}
                   onValueChange={(value: string | null) => setValue("category", value ?? "")}>
                   <ComboboxInput
+                  value={watch('category')}
                     id="small-form-university"
                     placeholder="Select a university type"
                     required
