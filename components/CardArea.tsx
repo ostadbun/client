@@ -38,12 +38,12 @@ function CardArea({
     >
 
 
-      <div className="absolute -top-3 -right-[.53rem]">
+      <div className="absolute -top-2 -right-2">
         <Disjonction />
       </div>
 
 
-      <div className="absolute -bottom-3 -left-[.52rem]">
+      <div className="absolute -bottom-2 -left-2">
         <Disjonction />
       </div>
 
