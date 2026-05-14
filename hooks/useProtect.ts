@@ -10,17 +10,17 @@ export function useProtect(redirectTo: string = '/auth') {
     const router = useRouter();
     const t = useUserAuthontication()
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     if (!t.isLogin) {
-    //         const username = getCookie('username');
-    //         const isLoggedIn = !!(username);
-    //         if (!isLoggedIn) {
-    //             router.replace(redirectTo);
-    //         } else {
-    //             const userData: IUser = { username }
-    //             t.Login(userData)
-    //         }
-    //     }
-    // }, [router, redirectTo]);
+        if (!t.isLogin) {
+            const username = getCookie('username');
+            const isLoggedIn = !!(username);
+            if (!isLoggedIn) {
+                router.replace(redirectTo);
+            } else {
+                const userData: IUser = { username }
+                t.Login(userData)
+            }
+        }
+    }, [router, redirectTo]);
 }

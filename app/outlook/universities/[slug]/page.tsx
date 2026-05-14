@@ -30,12 +30,10 @@ const data = {
   "image_url": "https://picsum.photos/seed/sharif/300/200",
   "description": "مرکز ممتاز آموزش مهندسی و علوم پایه در ایران با بیش از ۵۰ سال سابقه درخشان آموزشی",
   "description_english": "best of all",
-  // فیلدهای اصلی فرم (ویژگی‌های دانشگاه)
-  "numberOfFaculties": 12,        // تعداد دانشکده‌ها (مطابق فرم)
-  "numberOfStudents": 12500,      // تعداد دانشجویان (مطابق فرم)
-  "establishmentYear": 1352,      // سال تأسیس (مطابق فرم)
-  "nationalRank": 15,             // رتبه دانشگاه (مطابق فرم)
-  // اطلاعات تکمیلی
+  "numberOfFaculties": 12,
+  "numberOfStudents": 12500,
+  "establishmentYear": 1352,
+  "nationalRank": 15,
   "professors_count": 340,
   "majors_count": 48,
   "labs_count": 23,
@@ -105,178 +103,179 @@ const CardData: ICardItrationData = {
 
 export default function Page() {
   return (
-    <>
-      <div className="flex h-auto justify-start md:justify-center items-start w-full px-4 md:w-10/12 mx-auto mt-14 gap-x-10 flex-wrap">
-
-        <div className="w-full h-70 md:w-4/12 mb-14 rounded-2xl overflow-hidden border border-foreground border-dashed">
-          <Image src={"/images/university.webp"} width={300} height={200} alt="uni" className="object-cover size-full opacity-75" />
-        </div>
-
-        <div className="flex md:w-7/12 items-center flex-wrap gap-y-4">
-
-          <div className="w-full">
-            <h1 className="text-4xl md:text-start text-center font-black w-full">
-              {data.name}
-            </h1>
-            <h2 className="mt-1 text-sm md:text-start text-center font-normal w-full text-muted-foreground">
-              {data.name_english} University
-            </h2>
+    <div className="w-full overflow-x-hidden">
+      {/* بخش اصلی - کاملاً ریسپانسیو و بدون شکستگی */}
+      <div className="container mx-auto px-3 sm:px-4 md:px-6 mt-4 sm:mt-8 md:mt-14">
+        
+        {/* چیدمان: در موبایل ستونی، در دسکتاپ سطری */}
+        <div className="flex flex-col lg:flex-row gap-6 md:gap-8 lg:gap-10">
+          
+          {/* بخش تصویر - در موبایل حداکثر عرض 300px */}
+          <div className="flex justify-center lg:justify-start flex-shrink-0">
+            <div className="w-[260px] xs:w-[280px] sm:w-[300px] md:w-[340px] lg:w-[380px] aspect-[4/3] rounded-2xl overflow-hidden border border-foreground border-dashed bg-gray-100">
+              <Image 
+                src={"/images/university.webp"} 
+                width={380} 
+                height={285} 
+                alt="دانشگاه" 
+                className="object-cover w-full h-full"
+                priority
+              />
+            </div>
           </div>
 
-          <div className="w-full h-auto leading-7 text-justify border-t border-b py-4 border-white/10 border-dashed">
-            <p>
-              {data.description}
-            </p>
-          </div>
-
-          {/* دکمه‌ها بر اساس فیلدهای اصلی فرم */}
-          <div className="w-full flex flex-wrap md:justify-start justify-center items-center gap-3">
+          {/* بخش اطلاعات - در موبایل زیر تصویر */}
+          <div className="flex-1 min-w-0 space-y-4 sm:space-y-5">
             
-            {/* تعداد دانشکده‌ها - مطابق فرم */}
-            <Button variant="default" className="gap-2">
-              <Building2 className="size-4" />
-              {data.numberOfFaculties} دانشکده
-            </Button>
+            {/* عنوان دانشگاه */}
+            <div className="text-center lg:text-right">
+              <h1 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl font-black break-words">
+                {data.name}
+              </h1>
+              <h2 className="text-xs sm:text-sm text-muted-foreground mt-1">
+                {data.name_english} University
+              </h2>
+            </div>
 
-            {/* تعداد دانشجویان - مطابق فرم */}
-            <Button variant="secondary" className="gap-2">
-              <Users className="size-4" />
-              {data.numberOfStudents.toLocaleString()} دانشجو
-            </Button>
+            {/* توضیحات */}
+            <div className="border-t border-b py-3 sm:py-4 border-white/10 border-dashed">
+              <p className="text-sm sm:text-base leading-6 sm:leading-7 text-justify">
+                {data.description}
+              </p>
+            </div>
 
-            {/* تعداد اساتید */}
-            <Button variant="outline" className="gap-2">
-              <GraduationCap className="size-4" />
-              {data.professors_count} استاد
-            </Button>
+            {/* دکمه‌ها - با wrap در موبایل */}
+            <div className="flex flex-wrap justify-center lg:justify-start gap-2">
+              
+              <Button size="sm" variant="default" className="gap-1.5 text-xs h-8 sm:h-9">
+                <Building2 className="size-3 sm:size-3.5" />
+                {data.numberOfFaculties} دانشکده
+              </Button>
 
-            {/* تعداد رشته‌ها */}
-            <Button variant="default" className="gap-2">
-              <BookOpen className="size-4" />
-              {data.majors_count} رشته
-            </Button>
+              <Button size="sm" variant="secondary" className="gap-1.5 text-xs h-8 sm:h-9">
+                <Users className="size-3 sm:size-3.5" />
+                {data.numberOfStudents.toLocaleString()} دانشجو
+              </Button>
 
-            {/* موقعیت مکانی */}
-            <Button variant="outline" className="gap-2">
-              <Map className="size-4" />
-              {data.city}
-            </Button>
+              <Button size="sm" variant="outline" className="gap-1.5 text-xs h-8 sm:h-9">
+                <GraduationCap className="size-3 sm:size-3.5" />
+                {data.professors_count} استاد
+              </Button>
 
-            {/* نوع دانشگاه */}
-            <Button variant="secondary" className="gap-2">
-              <CatIcon className="size-4" />
-              {data.category}
-            </Button>
+              <Button size="sm" variant="default" className="gap-1.5 text-xs h-8 sm:h-9">
+                <BookOpen className="size-3 sm:size-3.5" />
+                {data.majors_count} رشته
+              </Button>
 
-            {/* سال تاسیس - مطابق فرم */}
-            <Button variant="ghost" className="gap-2">
-              <Calendar className="size-4" />
-              تاسیس {data.establishmentYear}
-            </Button>
+              <Button size="sm" variant="outline" className="gap-1.5 text-xs h-8 sm:h-9">
+                <Map className="size-3 sm:size-3.5" />
+                {data.city}
+              </Button>
 
-            {/* رتبه دانشگاه - مطابق فرم */}
-            <Button className={`gap-2 ${getRankColor(data.nationalRank)}`}>
-              <Trophy className="size-4" />
-              رتبه {data.nationalRank} کشوری
-            </Button>
+              <Button size="sm" variant="secondary" className="gap-1.5 text-xs h-8 sm:h-9">
+                <CatIcon className="size-3 sm:size-3.5" />
+                {data.category}
+              </Button>
 
+              <Button size="sm" variant="ghost" className="gap-1.5 text-xs h-8 sm:h-9">
+                <Calendar className="size-3 sm:size-3.5" />
+                تاسیس {data.establishmentYear}
+              </Button>
+
+              <Button size="sm" className={`gap-1.5 text-xs h-8 sm:h-9 ${getRankColor(data.nationalRank)}`}>
+                <Trophy className="size-3 sm:size-3.5" />
+                رتبه {data.nationalRank}
+              </Button>
+
+            </div>
+          </div>
+        </div>
+
+        {/* بخش جزئیات دانشگاه */}
+        <div className="border-t-2 border-dashed mt-8 sm:mt-10 pt-8 sm:pt-10">
+          
+          <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-center mb-6 sm:mb-8 flex items-center justify-center gap-2">
+            <Building2 className="size-5 sm:size-6" />
+            جزئیات دانشگاه
+          </h2>
+
+          {/* کارت‌های آماری - گرید ریسپانسیو */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8 sm:mb-10">
+            
+            <div className="bg-muted/30 rounded-xl p-3 sm:p-4 border border-dashed text-center">
+              <Building2 className="size-6 sm:size-7 md:size-8 text-primary mx-auto mb-2" />
+              <p className="text-lg sm:text-xl md:text-2xl font-bold">{data.numberOfFaculties}</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">دانشکده</p>
+            </div>
+
+            <div className="bg-muted/30 rounded-xl p-3 sm:p-4 border border-dashed text-center">
+              <Users className="size-6 sm:size-7 md:size-8 text-primary mx-auto mb-2" />
+              <p className="text-lg sm:text-xl md:text-2xl font-bold">{data.numberOfStudents.toLocaleString()}</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">دانشجو</p>
+            </div>
+
+            <div className="bg-muted/30 rounded-xl p-3 sm:p-4 border border-dashed text-center">
+              <Calendar className="size-6 sm:size-7 md:size-8 text-primary mx-auto mb-2" />
+              <p className="text-lg sm:text-xl md:text-2xl font-bold">{data.establishmentYear}</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">سال تأسیس</p>
+            </div>
+
+            <div className="bg-muted/30 rounded-xl p-3 sm:p-4 border border-dashed text-center">
+              <Trophy className="size-6 sm:size-7 md:size-8 text-primary mx-auto mb-2" />
+              <p className="text-lg sm:text-xl md:text-2xl font-bold">{data.nationalRank}</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">رتبه کشوری</p>
+            </div>
           </div>
 
+          {/* اطلاعات تکمیلی */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-8 sm:mb-10">
+            
+            <div className="bg-muted/30 rounded-xl p-3 sm:p-4 border border-dashed flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <FlaskConical className="size-4 sm:size-5 text-primary" />
+                <span className="text-xs sm:text-sm md:text-base">آزمایشگاه‌ها</span>
+              </div>
+              <span className="font-bold text-sm sm:text-base md:text-lg">{data.labs_count}</span>
+            </div>
+
+            <div className="bg-muted/30 rounded-xl p-3 sm:p-4 border border-dashed flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Award className="size-4 sm:size-5 text-primary" />
+                <span className="text-xs sm:text-sm md:text-base">درصد پذیرش</span>
+              </div>
+              <span className="font-bold text-sm sm:text-base md:text-lg">{data.acceptance_rate}%</span>
+            </div>
+
+            <div className="bg-muted/30 rounded-xl p-3 sm:p-4 border border-dashed flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <HeartHandshake className="size-4 sm:size-5 text-primary" />
+                <span className="text-xs sm:text-sm md:text-base">رضایت دانشجویان</span>
+              </div>
+              <span className="font-bold text-sm sm:text-base md:text-lg">{data.satisfaction_rate}%</span>
+            </div>
+          </div>
+
+          {/* نوار پیشرفت */}
+          <div className="bg-muted/30 rounded-xl p-3 sm:p-4 border border-dashed mb-8 sm:mb-10">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs sm:text-sm font-medium">نرخ رضایت دانشجویان</span>
+              <span className="text-sm sm:text-base font-bold text-primary">{data.satisfaction_rate}%</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2">
+              <div 
+                className="bg-primary rounded-full h-2 transition-all duration-500"
+                style={{ width: `${data.satisfaction_rate}%` }}
+              />
+            </div>
+          </div>
+
+          {/* اساتید برتر */}
+          <div className="mb-8 sm:mb-10">
+            <CardItrationView detail={CardData.detail} />
+          </div>
+          
         </div>
       </div>
-
-      {/* بخش نمایش جزئیات بیشتر بر اساس فیلدهای فرم */}
-      <div className="border-t-2 border-dashed w-10/12 mx-auto pt-10 mt-10">
-        
-        <h2 className="text-2xl font-bold text-center mb-8 flex items-center justify-center gap-2">
-          <Building2 className="size-6 text-primary" />
-          جزئیات دانشگاه
-        </h2>
-
-        {/* کارت‌های نمایشی برای فیلدهای فرم */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-          
-          {/* تعداد دانشکده‌ها */}
-          <div className="bg-muted/30 rounded-xl p-4 border border-dashed text-center">
-            <Building2 className="size-8 text-primary mx-auto mb-2" />
-            <p className="text-2xl font-bold">{data.numberOfFaculties}</p>
-            <p className="text-sm text-muted-foreground">دانشکده</p>
-          </div>
-
-          {/* تعداد دانشجویان */}
-          <div className="bg-muted/30 rounded-xl p-4 border border-dashed text-center">
-            <Users className="size-8 text-primary mx-auto mb-2" />
-            <p className="text-2xl font-bold">{data.numberOfStudents.toLocaleString()}</p>
-            <p className="text-sm text-muted-foreground">دانشجو</p>
-          </div>
-
-          {/* سال تأسیس */}
-          <div className="bg-muted/30 rounded-xl p-4 border border-dashed text-center">
-            <Calendar className="size-8 text-primary mx-auto mb-2" />
-            <p className="text-2xl font-bold">{data.establishmentYear}</p>
-            <p className="text-sm text-muted-foreground">سال تأسیس</p>
-          </div>
-
-          {/* رتبه دانشگاه */}
-          <div className="bg-muted/30 rounded-xl p-4 border border-dashed text-center">
-            <Trophy className="size-8 text-primary mx-auto mb-2" />
-            <p className="text-2xl font-bold">{data.nationalRank}</p>
-            <p className="text-sm text-muted-foreground">رتبه کشوری</p>
-          </div>
-
-        </div>
-
-        {/* اطلاعات تکمیلی */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
-          
-          {/* تعداد آزمایشگاه‌ها */}
-          <div className="bg-muted/30 rounded-xl p-4 border border-dashed flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <FlaskConical className="size-5 text-primary" />
-              <span>آزمایشگاه‌ها</span>
-            </div>
-            <span className="font-bold text-lg">{data.labs_count}</span>
-          </div>
-
-          {/* درصد پذیرش */}
-          <div className="bg-muted/30 rounded-xl p-4 border border-dashed flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Award className="size-5 text-primary" />
-              <span>درصد پذیرش</span>
-            </div>
-            <span className="font-bold text-lg">{data.acceptance_rate}%</span>
-          </div>
-
-          {/* رضایت دانشجویان */}
-          <div className="bg-muted/30 rounded-xl p-4 border border-dashed flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <HeartHandshake className="size-5 text-primary" />
-              <span>رضایت دانشجویان</span>
-            </div>
-            <span className="font-bold text-lg">{data.satisfaction_rate}%</span>
-          </div>
-
-        </div>
-
-        {/* نوار پیشرفت رضایت */}
-        <div className="bg-muted/30 rounded-xl p-4 border border-dashed mb-10">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium">نرخ رضایت دانشجویان</span>
-            <span className="text-sm font-bold text-primary">{data.satisfaction_rate}%</span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
-            <div 
-              className="bg-primary rounded-full h-2 transition-all duration-500"
-              style={{ width: `${data.satisfaction_rate}%` }}
-            />
-          </div>
-        </div>
-
-        {/* اساتید برتر */}
-        <CardItrationView detail={CardData.detail} />
-        
-      </div>
-
-    </>
+    </div>
   )
 }

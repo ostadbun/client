@@ -225,10 +225,35 @@ export default function Professor({ initialData = defaultProfessorData }: Profes
 
                         {/* ========== بخش جدید: ویژگی‌های حرفه‌ای ========== */}
                         <div className="mt-6 pt-4 border-t border-dashed border-gray-200">
-                            <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-                                <Star className="size-5" />
-                                ویژگی‌های حرفه‌ای
-                            </h3>
+                            <div className="flex justify-between">
+                                <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
+                                    <Star className="size-5" />
+                                    ویژگی‌های حرفه‌ای
+                                </h3>
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    size="icon"
+                                    onClick={() => {
+                                        if (
+                                            !tempEducation.degree ||
+                                            !tempEducation.university ||
+                                            !tempEducation.field
+                                        )
+                                            return
+
+                                        append(tempEducation)
+
+                                        setTempEducation({
+                                            degree: "",
+                                            university: "",
+                                            field: "",
+                                        })
+                                    }}
+                                >
+                                    <Plus />
+                                </Button>
+                            </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {/* نحوه تدریس */}

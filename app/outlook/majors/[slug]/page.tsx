@@ -93,73 +93,53 @@ const CardData: ICardItrationData = {
 export default function Page() {
   return (
     <>
-      <div className="flex h-auto justify-start md:justify-center items-start w-full px-4 md:w-10/12 mx-auto mt-14 gap-x-10 flex-wrap">
-
-
-        <div className="flex md:w-7/12 items-center flex-wrap gap-y-4">
-
+      {/* حذف padding اضافی در تبلت و کاهش عرض کناری */}
+      <div className="flex h-auto justify-start lg:justify-center items-start w-full px-3 sm:px-4 md:px-6 lg:px-0 lg:w-10/12 mx-auto mt-14 gap-x-10 flex-wrap">
+        
+        {/* افزایش عرض در تبلت از 7/12 به 10/12 */}
+        <div className="flex lg:w-7/12 md:w-10/12 w-full items-center flex-wrap gap-y-4 mx-auto md:mx-0">
+          
           <div className="w-full">
-            <h1 className="text-4xl md:text-start text-center font-black w-full">
+            <h1 className="text-3xl sm:text-4xl md:text-start text-center font-black w-full">
               {data.name}
             </h1>
-            <h2 className="mt-1 text-sm md:text-start text-center font-normal w-full">
+            <h2 className="mt-1 text-xs sm:text-sm md:text-start text-center font-normal w-full">
               {data.name_english} - Bachelor of Science
             </h2>
           </div>
 
-          <div className="w-full h-auto leading-7 text-justify border-t border-b py-4 border-white/10 border-dashed">
-            <p>
+          <div className="w-full h-auto leading-6 sm:leading-7 text-justify border-t border-b py-3 sm:py-4 border-white/10 border-dashed">
+            <p className="text-sm sm:text-base">
               {data.description}
             </p>
           </div>
 
-          {/* دکمه‌های اصلاح شده با اطلاعات رشته */}
-          <div className="w-full flex flex-wrap md:justify-start justify-center items-center gap-3">
+          {/* دکمه‌ها با grid برای چیدمان بهتر در تبلت */}
+          <div className="w-full flex flex-wrap justify-center sm:justify-center md:justify-start items-center gap-2 sm:gap-3">
             
-            {/* مدت زمان تحصیل */}
-            <Button variant="default" className="gap-2">
-              <Clock className="size-4" />
-              {data.duration} سال تحصیل
+            <Button variant="default" className="gap-1 sm:gap-2 text-xs sm:text-sm">
+              <Clock className="size-3 sm:size-4" />
+              <span className="whitespace-nowrap">{data.duration} سال تحصیل</span>
             </Button>
 
-            {/* تعداد واحدها */}
-            <Button variant="secondary" className="gap-2">
-              <BookOpen className="size-4" />
-              {data.credits} واحد
+            <Button variant="secondary" className="gap-1 sm:gap-2 text-xs sm:text-sm">
+              <BookOpen className="size-3 sm:size-4" />
+              <span className="whitespace-nowrap">{data.credits} واحد</span>
             </Button>
 
-            {/* تعداد دانشجویان */}
-            <Button variant="outline" className="gap-2">
-              <Users className="size-4" />
-              {data.students_count} دانشجو
+            <Button variant="outline" className="gap-1 sm:gap-2 text-xs sm:text-sm">
+              <Users className="size-3 sm:size-4" />
+              <span className="whitespace-nowrap">{data.students_count} دانشجو</span>
             </Button>
 
-            {/* تعداد اساتید */}
-            <Button variant="default" className="gap-2">
-              <Award className="size-4" />
-              {data.professors_count} استاد
+            <Button variant="default" className="gap-1 sm:gap-2 text-xs sm:text-sm">
+              <Award className="size-3 sm:size-4" />
+              <span className="whitespace-nowrap">{data.professors_count} استاد</span>
             </Button>
 
-            {/* سطح سختی */}
-            <Button variant="destructive" className="gap-2">
-              <Code2 className="size-4" />
-              سطح: {data.difficulty}
-            </Button>
-
-            {/* نرخ تقاضا */}
-            <Button variant="secondary" className="gap-2 bg-green-600 hover:bg-green-700">
-              <TrendingUp className="size-4" />
-              تقاضا: {data.demand_rate}
-            </Button>
-
-            {/* فرصت‌های شغلی */}
-            <Button variant="outline" className="gap-2">
-              💼 {data.job_opportunities}% اشتغال
-            </Button>
-
-            {/* محدوده حقوق */}
-            <Button variant="default" className="gap-2">
-              💰 {data.avg_salary} میلیون تومان
+            <Button variant="destructive" className="gap-1 sm:gap-2 text-xs sm:text-sm">
+              <Code2 className="size-3 sm:size-4" />
+              <span className="whitespace-nowrap">سطح: {data.difficulty}</span>
             </Button>
 
           </div>
@@ -167,19 +147,22 @@ export default function Page() {
         </div>
       </div>
 
-      <div className="border-t-2 border-dashed w-10/12 mx-auto py-10 mt-10">
+      {/* بخش پایینی با عرض بهتر برای تبلت */}
+      <div className="border-t-2 border-dashed w-full lg:w-10/12 mx-auto py-8 sm:py-10 mt-8 sm:mt-10 px-3 sm:px-4 md:px-6 lg:px-0 overflow-x-auto">
+        
+        <div className="min-w-[250px] md:min-w-0">
+          <MajorGraph />
+        </div>
 
-        <MajorGraph />
-
-        <div className="mt-10">
+        <div className="mt-8 sm:mt-10">
           <CardItrationView detail={CardData.detail} />
         </div>
         
-        <div className="mt-6">
+        <div className="mt-4 sm:mt-6">
           <CardItrationView detail={CardData.detail} />
         </div>
         
-        <div className="mt-6">
+        <div className="mt-4 sm:mt-6">
           <CardItrationView detail={CardData.detail} />
         </div>
 

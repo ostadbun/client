@@ -1,7 +1,6 @@
 "use client"
 import * as React from "react"
 
-
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -22,11 +21,10 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { sileo } from "sileo"
 import { api } from "@/utils/api/base"
-import { useForm } from "react-hook-form"
+import { useFieldArray, useForm } from "react-hook-form"
 import { useRouter } from "next/navigation"
-import { Building2, Users, Calendar, Trophy } from "lucide-react"
+import { Building2, Users, Calendar, Trophy, Award, Plus, X, Globe, Phone, Mail, MapPin } from "lucide-react"
 import { CardArea, CardAreaWrapper } from "@/components/CardArea"
-import { CardExample } from "@/components/component-example"
 
 export function UniversityComponent1() {
   return (
@@ -50,11 +48,16 @@ const cityOption = [
 const universityOption = [
   "دانشگاه دولتی",
   "دانشگاه آزاد",
-  "آزاد", 
-  "غیر انتفاعی", 
+  "آزاد",
+  "غیر انتفاعی",
   "پیام نور",
   "علمی کاربردی"
 ] as const
+
+type ExtraFeature = {
+  title: string
+  value: string
+}
 
 type FormValues = {
   name: string
@@ -64,36 +67,66 @@ type FormValues = {
   city: string
   category: string
   image_url: string
-  // ویژگی‌های جدید دانشگاه
-  numberOfFaculties: number      // تعداد دانشکده‌ها
-  numberOfStudents: number       // تعداد دانشجویان
-  establishmentYear: number      // سال تأسیس
-  nationalRank: number           // رتبه دانشگاه در کشور
+  // ویژگی‌های اصلی دانشگاه
+  numberOfFaculties: number
+  numberOfStudents: number
+  establishmentYear: number
+  nationalRank: number
+  // ویژگی‌های اضافی
+  extraFeatures: ExtraFeature[]
+  // اطلاعات تماس
+  website: string
+  phone: string
+  email: string
+  address: string
+}
+
+// دیتای پیش‌فرض با مقادیر اولیه برای ویرایش
+const defaultUniversityData: FormValues = {
+  name: "دانشگاه صنعتی شریف",
+  name_english: "Sharif University of Technology",
+  description: "مرکز ممتاز آموزش مهندسی و علوم پایه در ایران با بیش از ۵۰ سال سابقه درخشان",
+  description_english: "A premier center for engineering and basic sciences education in Iran",
+  city: "tehran",
+  category: "دانشگاه دولتی",
+  image_url: "https://picsum.photos/seed/sharif/300/200",
+  numberOfFaculties: 15,
+  numberOfStudents: 12500,
+  establishmentYear: 1345,
+  nationalRank: 2,
+  extraFeatures: [
+    { title: "تعداد کتابخانه‌ها", value: "۵ کتابخانه مرکزی" },
+    { title: "تعداد آزمایشگاه‌ها", value: "۲۳ آزمایشگاه تخصصی" },
+    { title: "زمین ورزشی", value: "۳ زمین فوتبال، ۲ سالن سرپوشیده" }
+  ],
+  website: "https://sharif.edu",
+  phone: "۰۲۱-۶۶۰۰۵۱۲۳",
+  email: "info@sharif.edu",
+  address: "تهران، خیابان آزادی، دانشگاه صنعتی شریف"
 }
 
 export default function FormExample() {
   const [isLoading, setIsLoading] = React.useState(false)
   const router = useRouter()
-  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<FormValues>({
-    defaultValues: {
-      name: "دانشگاه صنعتی شریف",
-      name_english: "Sharif University of Technology",
-      description: "مرکز ممتاز آموزش مهندسی و علوم پایه در ایران با بیش از ۵۰ سال سابقه درخشان",
-      description_english: "A premier center for engineering and basic sciences education in Iran",
-      city: "tehran",
-      category: "دانشگاه دولتی",
-      image_url: "https://picsum.photos/seed/sharif/300/200",
-      // مقادیر اولیه برای ویژگی‌های جدید
-      numberOfFaculties: 15,
-      numberOfStudents: 12500,
-      establishmentYear: 1345,
-      nationalRank: 2,
-    },
+
+  const { register, handleSubmit, watch, setValue, control, formState: { errors } } = useForm<FormValues>({
+    defaultValues: defaultUniversityData,
+  })
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "extraFeatures",
+  })
+
+  // state موقت برای ویژگی جدید
+  const [tempFeature, setTempFeature] = React.useState<ExtraFeature>({
+    title: "",
+    value: "",
   })
 
   const onSubmit = async (data: FormValues) => {
     setIsLoading(true)
-    
+
     if (!data.city || data.city.length < 1) {
       sileo.error({ title: 'شهر را انتخاب کنید' })
       setIsLoading(false)
@@ -151,7 +184,7 @@ export default function FormExample() {
         <CardDescription className="mb-4 text-sm text-gray-600">
           لطفاً بخش های مورد نظر را ویرایش نمایید
         </CardDescription>
-        
+
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           <FieldGroup>
             {/* ردیف اول: نام دانشگاه و نام انگلیسی */}
@@ -204,7 +237,7 @@ export default function FormExample() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               <Field>
                 <FieldLabel htmlFor="small-form-framework">شهر را انتخاب کنید</FieldLabel>
-                <Combobox 
+                <Combobox
                   onValueChange={(value: string | null) => setValue("city", value ?? "")}
                   items={cityOption}
                 >
@@ -254,12 +287,30 @@ export default function FormExample() {
               </Field>
             </div>
 
-            {/* ========== ویژگی‌های جدید دانشگاه ========== */}
+            {/* ========== ویژگی‌های اصلی دانشگاه ========== */}
             <div className="mt-6 pt-4 border-t border-dashed border-gray-200">
-              <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-                <Building2 className="size-5" />
-                ویژگی‌های دانشگاه
-              </h3>
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-lg font-bold flex items-center gap-2">
+                  <Award className="size-5" />
+                  ویژگی‌های اضافی
+                </h3>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="gap-1"
+                  onClick={() => {
+                    if (!tempFeature.title || !tempFeature.value) {
+                      sileo.warning({ title: 'لطفاً عنوان و مقدار ویژگی را وارد کنید' })
+                      return
+                    }
+                    append(tempFeature)
+                    setTempFeature({ title: "", value: "" })
+                  }}
+                >
+                  <Plus className="size-4" />
+                </Button>
+              </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* تعداد دانشکده‌ها */}
@@ -271,10 +322,10 @@ export default function FormExample() {
                     </span>
                   </FieldLabel>
                   <Input
-                    {...register("numberOfFaculties", { 
-                      required: true, 
+                    {...register("numberOfFaculties", {
+                      required: true,
                       valueAsNumber: true,
-                      min: 1 
+                      min: 1
                     })}
                     id="number-of-faculties"
                     type="number"
@@ -291,10 +342,10 @@ export default function FormExample() {
                     </span>
                   </FieldLabel>
                   <Input
-                    {...register("numberOfStudents", { 
-                      required: true, 
+                    {...register("numberOfStudents", {
+                      required: true,
                       valueAsNumber: true,
-                      min: 0 
+                      min: 0
                     })}
                     id="number-of-students"
                     type="number"
@@ -311,9 +362,9 @@ export default function FormExample() {
                     </span>
                   </FieldLabel>
                   <Input
-                    {...register("establishmentYear", { 
-                      required: true, 
-                      valueAsNumber: true 
+                    {...register("establishmentYear", {
+                      required: true,
+                      valueAsNumber: true
                     })}
                     id="establishment-year"
                     type="number"
@@ -330,10 +381,10 @@ export default function FormExample() {
                     </span>
                   </FieldLabel>
                   <Input
-                    {...register("nationalRank", { 
-                      required: true, 
+                    {...register("nationalRank", {
+                      required: true,
                       valueAsNumber: true,
-                      min: 1 
+                      min: 1
                     })}
                     id="national-rank"
                     type="number"
@@ -341,40 +392,140 @@ export default function FormExample() {
                   />
                 </Field>
               </div>
-
-              {/* نمایش پیش‌نمایش مقادیر وارد شده */}
-              {(watch("numberOfFaculties") > 0 || watch("numberOfStudents") > 0 || watch("establishmentYear") > 0 || watch("nationalRank") > 0) && (
-                <div className="mt-4 p-3 bg-muted/30 rounded-lg border border-dashed">
-                  <p className="text-sm font-medium mb-2">پیش‌نمایش:</p>
-                  <div className="flex flex-wrap gap-3 text-sm">
-                    {watch("numberOfFaculties") > 0 && (
-                      <Badge variant="outline" className="gap-1">
-                        <Building2 className="size-3" />
-                        {watch("numberOfFaculties")} دانشکده
-                      </Badge>
-                    )}
-                    {watch("numberOfStudents") > 0 && (
-                      <Badge variant="outline" className="gap-1">
-                        <Users className="size-3" />
-                        {watch("numberOfStudents").toLocaleString()} دانشجو
-                      </Badge>
-                    )}
-                    {watch("establishmentYear") > 0 && (
-                      <Badge variant="outline" className="gap-1">
-                        <Calendar className="size-3" />
-                        تأسیس {watch("establishmentYear")}
-                      </Badge>
-                    )}
-                    {watch("nationalRank") > 0 && (
-                      <Badge variant="outline" className="gap-1">
-                        <Trophy className="size-3" />
-                        رتبه {watch("nationalRank")} کشوری
-                      </Badge>
-                    )}
-                  </div>
-                </div>
-              )}
             </div>
+
+            {/* ========== اطلاعات تماس ========== */}
+            {/* <div className="mt-6 pt-4 border-t border-dashed border-gray-200">
+              <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
+                <Globe className="size-5" />
+                اطلاعات تماس
+              </h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Field>
+                  <FieldLabel htmlFor="website">
+                    <span className="flex items-center gap-1">
+                      <Globe className="size-4" />
+                      وبسایت
+                    </span>
+                  </FieldLabel>
+                  <Input
+                    {...register("website")}
+                    id="website"
+                    dir="ltr"
+                    placeholder="https://example.com"
+                  />
+                </Field>
+
+                <Field>
+                  <FieldLabel htmlFor="phone">
+                    <span className="flex items-center gap-1">
+                      <Phone className="size-4" />
+                      تلفن
+                    </span>
+                  </FieldLabel>
+                  <Input
+                    {...register("phone")}
+                    id="phone"
+                    placeholder="۰۲۱-۱۲۳۴۵۶۷۸"
+                  />
+                </Field>
+
+                <Field>
+                  <FieldLabel htmlFor="email">
+                    <span className="flex items-center gap-1">
+                      <Mail className="size-4" />
+                      ایمیل
+                    </span>
+                  </FieldLabel>
+                  <Input
+                    {...register("email")}
+                    id="email"
+                    dir="ltr"
+                    placeholder="info@university.ac.ir"
+                  />
+                </Field>
+
+                <Field>
+                  <FieldLabel htmlFor="address">
+                    <span className="flex items-center gap-1">
+                      <MapPin className="size-4" />
+                      آدرس
+                    </span>
+                  </FieldLabel>
+                  <Input
+                    {...register("address")}
+                    id="address"
+                    placeholder="آدرس کامل دانشگاه"
+                  />
+                </Field>
+              </div>
+            </div> */}
+
+            {/* ========== ویژگی‌های اضافی با دکمه پلاس ========== */}
+            {/* <div className="mt-6 pt-4 border-t border-dashed border-gray-200">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-lg font-bold flex items-center gap-2">
+                  <Award className="size-5" />
+                  ویژگی‌های اضافی
+                </h3>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="gap-1"
+                  onClick={() => {
+                    if (!tempFeature.title || !tempFeature.value) {
+                      sileo.warning({ title: 'لطفاً عنوان و مقدار ویژگی را وارد کنید' })
+                      return
+                    }
+                    append(tempFeature)
+                    setTempFeature({ title: "", value: "" })
+                  }}
+                >
+                  <Plus className="size-4" />
+                  افزودن ویژگی
+                </Button>
+              </div>
+
+              {/* لیست ویژگی‌های اضافه شده */}
+            {/* <div className="flex gap-3 flex-wrap mb-4">
+                {fields.map((item, index) => (
+                  <Badge key={item.id} className="flex items-center gap-2 cursor-pointer" onClick={() => remove(index)}>
+                    <Award className="size-3" />
+                    {item.title}: {item.value}
+                    <X className="cursor-pointer w-3 h-3" />
+                  </Badge>
+                ))}
+                {fields.length === 0 && (
+                  <p className="text-sm text-muted-foreground">هیچ ویژگی اضافی ثبت نشده است</p>
+                )}
+              </div>
+
+              {/* فرم افزودن ویژگی جدید */}
+            {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Input
+                  placeholder="عنوان ویژگی (مثال: تعداد کتابخانه‌ها)"
+                  value={tempFeature.title}
+                  onChange={(e) =>
+                    setTempFeature((prev) => ({
+                      ...prev,
+                      title: e.target.value,
+                    }))
+                  }
+                />
+                <Input
+                  placeholder="مقدار (مثال: ۵)"
+                  value={tempFeature.value}
+                  onChange={(e) =>
+                    setTempFeature((prev) => ({
+                      ...prev,
+                      value: e.target.value,
+                    }))
+                  }
+                />
+              </div>
+            </div> */}
 
             {/* آدرس عکس */}
             <div className="mt-4">
@@ -384,10 +535,49 @@ export default function FormExample() {
                   {...register("image_url", { required: true })}
                   id="image-url"
                   dir="ltr"
-                  placeholder="Enter your url"
+                  placeholder="https://example.com/image.jpg"
                 />
               </Field>
             </div>
+
+            {/* نمایش پیش‌نمایش کامل */}
+            {(watch("numberOfFaculties") > 0 || watch("numberOfStudents") > 0 || watch("establishmentYear") > 0 || watch("nationalRank") > 0 || fields.length > 0) && (
+              <div className="mt-4 p-3 bg-muted/30 rounded-lg border border-dashed">
+                <p className="text-sm font-medium mb-2">پیش‌نمایش:</p>
+                <div className="flex flex-wrap gap-3 text-sm">
+                  {watch("numberOfFaculties") > 0 && (
+                    <Badge variant="outline" className="gap-1">
+                      <Building2 className="size-3" />
+                      {watch("numberOfFaculties")} دانشکده
+                    </Badge>
+                  )}
+                  {watch("numberOfStudents") > 0 && (
+                    <Badge variant="outline" className="gap-1">
+                      <Users className="size-3" />
+                      {watch("numberOfStudents").toLocaleString()} دانشجو
+                    </Badge>
+                  )}
+                  {watch("establishmentYear") > 0 && (
+                    <Badge variant="outline" className="gap-1">
+                      <Calendar className="size-3" />
+                      تأسیس {watch("establishmentYear")}
+                    </Badge>
+                  )}
+                  {watch("nationalRank") > 0 && (
+                    <Badge variant="outline" className="gap-1">
+                      <Trophy className="size-3" />
+                      رتبه {watch("nationalRank")} کشوری
+                    </Badge>
+                  )}
+                  {fields.map((item, index) => (
+                    <Badge key={index} variant="secondary" className="gap-1">
+                      <Award className="size-3" />
+                      {item.title}: {item.value}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* دکمه‌های ارسال و انصراف */}
             <div className="mt-6 flex justify-end gap-4">
