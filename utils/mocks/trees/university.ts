@@ -25,7 +25,7 @@ export const UniversityTreeMockData1 = [
 
 
 
-export const UniversityTreeMockData = [
+export const UniversityTreeMockDatabig = [
     { data: { id: 'univ', label: 'دانشگاه' }, classes: 'parent1' },
 
     { data: { id: 'maj', label: 'رشته‌ها' }, classes: 'parent2' },
@@ -163,4 +163,6 @@ export const UniversityTreeMockData = [
     { data: { id: 'e61', source: 'comp', target: 'hard' } },
     { data: { id: 'e62', source: 'comp', target: 'ai' } },
 ]
+
+
 

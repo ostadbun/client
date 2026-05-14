@@ -53,7 +53,7 @@ export default function RootLayout({
 
 
           <DirectionProvider direction="rtl">
-            <Toaster position="top-center" theme="dark" />
+            <Toaster position="bottom-right"  style={{ fontFamily: 'aradVF' }} />
             <SidebarProvider>
               <AppSidebar />
               <SidebarInset>

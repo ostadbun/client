@@ -2,7 +2,7 @@ import * as React from "react"
 
 import {
   Example,
-  ExampleWrapper,
+  CardAreaWrapper,
 } from "@/components/example"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -32,9 +32,9 @@ import { useRouter } from "next/navigation"
 
 export function UniversityComponent() {
   return (
-    <ExampleWrapper>
+    <CardAreaWrapper>
       <FormExample />
-    </ExampleWrapper>
+    </CardAreaWrapper>
   )
 }
 const cityOption = [
@@ -122,7 +122,7 @@ export default function FormExample() {
   }
   return (
 
-    <Example className="container w-full  mx-auto ">
+    <CardArea className="container w-full  mx-auto ">
       <Card className="flex  flex-col p-4 w-full">
         <CardTitle className="text-xl font-semibold mb-2">ادیت دانشگاه</CardTitle>
         <CardDescription className="mb-4 text-sm text-gray-600">

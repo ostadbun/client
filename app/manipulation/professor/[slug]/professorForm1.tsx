@@ -1,10 +1,6 @@
 "use client"
 import * as React from "react"
 
-import {
-    Example,
-    ExampleWrapper,
-} from "@/components/example"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -29,6 +25,7 @@ import { useFieldArray, useForm } from "react-hook-form"
 import { Back } from "@hugeicons/core-free-icons"
 import { useRouter } from "next/navigation"
 import { Plus, X } from "lucide-react"
+import { CardArea, CardAreaWrapper } from "@/components/CardArea"
 
 const defaultProfessorData: FormValues = {
     name: "دکتر علی رضایی",
@@ -75,9 +72,9 @@ type FormValues = {
 
 export function ProfessorComponent1() {
   return (
-    <ExampleWrapper>
+    <CardAreaWrapper>
       <Professor />
-    </ExampleWrapper>
+    </CardAreaWrapper>
   )
 }
 
@@ -153,7 +150,7 @@ export default function Professor({ initialData = defaultProfessorData }: Profes
     }
     return (
 
-        <Example className="container w-full mx-auto ">
+        <CardArea className="container w-full mx-auto ">
             <Card className="flex  flex-col p-4 w-full">
                 <CardTitle className="text-xl font-semibold mb-2">ادیت استاد</CardTitle>
                 <CardDescription className="mb-4 text-sm text-gray-600">
@@ -350,7 +347,7 @@ export default function Professor({ initialData = defaultProfessorData }: Profes
                     </FieldGroup>
                 </form>
             </Card>
-        </Example>
+        </CardArea>
 
     );
 }
