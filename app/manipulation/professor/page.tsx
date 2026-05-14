@@ -18,7 +18,7 @@ import { Plus, X } from "lucide-react"
 import { sileo } from "sileo"
 import axios from "axios"
 import { api } from "@/utils/api/base"
-import Professor, { ProfessorComponent } from "./professorForm"
+import ProfessorComponent from "./professorForm"
 
 // type Education = {
 //     degree: string
