@@ -94,7 +94,7 @@ export const Table = (data: ITableData) => {
 
 
 
-const Disjonction = () => {
+export const Disjonction = () => {
     return (
         // <div className="relative text-foreground/30 font-medium text-2xl">
         //     +

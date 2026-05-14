@@ -7,7 +7,7 @@ import { UniversityTreeMockData1 } from '@/utils/mocks/trees/university';
 import { Disjonction } from '@/components/osbn/table';
 cytoscape.use(dagre);
 
-export default function UniversityGraph() {
+export default function MajorGraph() {
     const containerRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
@@ -62,7 +62,7 @@ export default function UniversityGraph() {
     return (
         <>
             <div
-                className='border-foreground/10 border border-dashed w-10/12 h-[600px]  mx-auto mt-14'
+                className='border-foreground/10 border border-dashed w-10/12 h-192  mx-auto mt-14'
                 ref={containerRef}
 
             >
