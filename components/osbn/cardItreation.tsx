@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link"
 import { Card, CardFooter } from "../ui/card"
 import { Button } from "../ui/button"
@@ -74,7 +75,7 @@ export const CardItrationView = (dataValue: ICardItrationData) => {
 
                         <div className="flex mt-4 items-end justify-center gap-x-2">
                             <Pointer size={'3rem'} className="" />
-                            <h3 className="font-black text-2xl text-black">
+                            <h3 className="font-black text-2xl dark:text-white">
                                 موردی یافت نشد
                             </h3>
                         </div>

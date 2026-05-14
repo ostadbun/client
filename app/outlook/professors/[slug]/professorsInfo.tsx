@@ -95,11 +95,11 @@ const ProfessorsInfo = ({
               <span className="text-muted-foreground">{major}</span>
             </div>
           </div>
-            <div>
-          <DataTable columns={columns} data={data} />
-          <br/>
-        <DataTable columns={columns} data={data} />
-            </div>
+          <div>
+            <DataTable columns={columns} data={data} />
+            <br />
+            <DataTable columns={columns} data={data} />
+          </div>
         </CardContent>
       </Card>
     </div>
