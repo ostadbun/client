@@ -1,6 +1,4 @@
 "use client"
-import * as React from "react"
-
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -22,12 +20,17 @@ import { Textarea } from "@/components/ui/textarea"
 import { sileo } from "sileo"
 import { api } from "@/utils/api/base"
 import { useFieldArray, useForm } from "react-hook-form"
-import { Back } from "@hugeicons/core-free-icons"
-import { useRouter } from "next/navigation"
-import { Plus, X } from "lucide-react"
+import { redirect, RedirectType, useRouter } from "next/navigation"
+import { Plus, RefreshCcw, X, Star, Users, ClipboardList } from "lucide-react"
 import { CardArea, CardAreaWrapper } from "@/components/CardArea"
+import { useState } from "react"
+import { toast, useSonner } from "sonner"
 
+// IProfessor
 
+interface ProfessorProps {
+    initialData?: FormValues
+}
 
 type Education = {
     degree: string
@@ -43,282 +46,411 @@ type FormValues = {
     image_url: string
     experienceYears: number
     education_history: Education[]
+    // فیلدهای جدید
+    teachingStyle: string
+    ethics: string
+    evaluationMethod: string
+    communicationSkill: number
+    availability: string
 }
 
-export function ProfessorComponent() {
-  return (
-    <CardAreaWrapper>
-      <Professor />
-    </CardAreaWrapper>
-  )
+
+interface IButton {
+    isLoading: boolean
+    isNotActive: boolean
 }
 
+// مقادیر پیشنهادی برای نحوه تدریس
+const teachingStyles = ["تعاملی", "سخنرانی محور", "پروژه محور", "مسئله محور", "ترکیبی"]
+const ethicsLevels = ["بسیار بالا", "بالا", "متوسط", "قابل قبول"]
+const availabilityOptions = ["ایمیل", "ساعات اداری", "پیام رسان", "حضوری", "همه موارد"]
+const evaluationMethods = ["میان‌ترم + پایان‌ترم", "پروژه محور", "ارزیابی مستمر", "حضور و مشارکت", "ترکیبی"]
 
-export default function Professor() {
-    const [isLoading, setIsLoading] = React.useState(false)
+export default function ProfessorComponent() {
+    const { register, control, handleSubmit, setValue, watch } = useForm<FormValues>({})
+    const [ButtonState, setButtonState] = useState<IButton>({ isNotActive: false, isLoading: false })
     const degrees = ["کارشناسی", "کارشناسی ارشد", "دکترا"]
+
     const router = useRouter()
-    const { register, control, handleSubmit } = useForm<FormValues>({
-        defaultValues: {
-            education_history: [],
-        },
-    })
 
     const { fields, append, remove } = useFieldArray({
         control,
         name: "education_history",
     })
 
-    // 🔹 state موقت برای آیتم جدید
-    const [tempEducation, setTempEducation] = React.useState<Education>({
+    // state موقت برای آیتم جدید
+    const [tempEducation, setTempEducation] = useState<Education>({
         degree: "",
         university: "",
         field: "",
     })
 
+    // مقادیر انتخابی
+    const [selectedTeachingStyle, setSelectedTeachingStyle] = useState("")
+    const [selectedEthics, setSelectedEthics] = useState("")
+    const [selectedAvailability, setSelectedAvailability] = useState("")
+    const [selectedEvaluationMethod, setSelectedEvaluationMethod] = useState("")
+
     const onSubmit = async (data: FormValues) => {
-        setIsLoading(true)
+        setButtonState((prev) => { return { ...prev, isLoading: true } })
 
-        if (data.education_history?.length < 1) {
-            sileo.error({
-                title: 'تحصیلات نباید خالی باشد',
-            })
-        } else {
-            api.post("/manipulation/professor", data).then(s => {
-                console.log(s.data)
-                sileo.success({
-                    title: 'با موفقیت به لیست معلق ها اضاف شد !'
-                })
-            })
-
-        }
-
-        // if (!id) {
-        //   setIsLoading(false)
-        //   sileo.error({ title: 'شناسه ادیت نامعتبر است' })
-        //   return
-        // }
-        // the condition use for when we have id 
-
+        console.log(data.education_history.length)
 
         try {
-
-            // const response = await api.patch(`/manipulation/university/${id}`, data)
-            // Use api.patch for edits. The value below this comment is used for additions.
-
-
-            const response = await api.post(`/manipulation/professor/`, data)
-
-            router.push('/console')
-            console.log(response.data)
-
+            if (data.education_history?.length < 1) {
+                toast.warning('سابقه تحصیلات اضافه کنید')
+            } else {
+                await new Promise(resolve => setTimeout(resolve, 1000))
+                console.log(data)
+                toast.success('با موفقیت ارسال شد!')
+            }
         } catch (error) {
-            console.log(error);
-
+            console.log(error)
+            toast.error('ERROR')
         } finally {
-            setIsLoading(false)
+            setButtonState((prev) => { return { ...prev, isLoading: false } })
         }
     }
+
     return (
+        <CardAreaWrapper>
+            <CardArea>
+                <Card className="flex flex-col p-4 w-full">
+                    <CardTitle className="text-xl font-semibold mb-2">درخواست ویرایش استاد</CardTitle>
+                    <CardDescription className="mb-4 text-sm text-gray-600">
+                        لطفاً بخش های مورد نظر را ویرایش نمایید
+                    </CardDescription>
+                    <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+                        <FieldGroup>
+                            {/* ردیف اول: نام استاد و نام انگلیسی */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <Field>
+                                    <FieldLabel htmlFor="en-form-title">نام استاد</FieldLabel>
+                                    <Input
+                                        {...register("name", { required: true })}
+                                        id="en-form-title"
+                                        placeholder="محمد رضا یمقانی"
+                                    />
+                                </Field>
 
-        <CardArea className="container w-full mx-auto ">
-            <Card className="flex  flex-col p-4 w-full">
-                <CardTitle className="text-xl font-semibold mb-2">ادیت استاد</CardTitle>
-                <CardDescription className="mb-4 text-sm text-gray-600">
-                    لطفاً بخش های مورد نظر را ادیت نمایید
-                </CardDescription>
-                <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-                    <FieldGroup>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <Field>
-                                <FieldLabel htmlFor="en-form-title">نام استاد</FieldLabel>
-                                <Input
-                                    {...register("name", { required: true })}
-                                    id="en-form-title"
-                                    placeholder="Enter professor`s name"
+                                <Field>
+                                    <FieldLabel htmlFor="en-form-title-en">نام انگلیسی</FieldLabel>
+                                    <Input
+                                        {...register("name_english", { required: true })}
+                                        id="en-form-title-en"
+                                        dir={'ltr'}
+                                        placeholder="mohammad reza yamaghani"
+                                    />
+                                </Field>
+                            </div>
 
-                                />
-                            </Field>
+                            {/* توضیحات فارسی و انگلیسی */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                                <Field>
+                                    <FieldLabel htmlFor="description">توضیحات</FieldLabel>
+                                    <Textarea
+                                        {...register("description", { required: true })}
+                                        id="description"
+                                        placeholder="استادیار دانشگاه آزاد لاهیجان"
+                                    />
+                                </Field>
 
-                            <Field>
-                                <FieldLabel htmlFor="en-form-title-en">نام انگلیسی</FieldLabel>
-                                <Input
-                                    {...register("name_english", { required: true })}
-                                    id="en-form-title-en"
-                                    placeholder="Enter professor`s name"
-                                />
-                            </Field>
-                        </div>
+                                <Field>
+                                    <FieldLabel htmlFor="english-description">توضیحات به انگلیسی</FieldLabel>
+                                    <Textarea
+                                        {...register("description_english", { required: true })}
+                                        id="english-description"
+                                        dir={'ltr'}
+                                        placeholder="Assistant Professor, Lahijan Azad University"
+                                    />
+                                </Field>
+                            </div>
 
-                        <div className="mt-4">
-                            <Field>
-                                <FieldLabel htmlFor="description">توضیحات</FieldLabel>
-                                <Textarea
-                                    {...register("description", { required: true })}
-                                    id="description"
-                                    placeholder="Add any additional comments"
-                                />
-                            </Field>
-                        </div>
+                            {/* آدرس عکس و سابقه */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                                <Field>
+                                    <FieldLabel htmlFor="image-url">آدرس عکس</FieldLabel>
+                                    <Input
+                                        {...register("image_url", { required: true })}
+                                        id="image-url"
+                                        dir={'ltr'}
+                                        placeholder="https://example.com/professor.jpg"
+                                    />
+                                </Field>
 
-                        <div className="mt-4">
-                            <Field>
-                                <FieldLabel htmlFor="english-description">توضیحات به انگلیسی</FieldLabel>
-                                <Textarea
-                                    {...register("description_english", { required: true })}
-                                    id="english-description"
-                                    placeholder="Add any additional comments"
-                                />
-                            </Field>
-                        </div>
+                                <Field>
+                                    <FieldLabel htmlFor="small-form-framework">سابقه (سال)</FieldLabel>
+                                    <Input
+                                        placeholder="مثال: ۱۵"
+                                        {...register("experienceYears", { valueAsNumber: true, required: true })}
+                                        type="number"
+                                    />
+                                </Field>
+                            </div>
 
-                        <div className="mt-4">
-                            <Field>
-                                <FieldLabel htmlFor="image-url">آدرس عکس</FieldLabel>
-                                <Input
-                                    {...register("image_url", { required: true })}
-                                    id="image-url"
-                                    placeholder="Enter your url"
-                                />
-                            </Field>
-                        </div>
+                            {/* ========== بخش جدید: نحوه تدریس و اخلاقیات ========== */}
+                            <div className="mt-6 pt-4 border-t border-dashed border-gray-200">
+                                <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
+                                    <Star className="size-5" />
+                                    ویژگی‌های حرفه‌ای
+                                </h3>
+                                
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {/* نحوه تدریس */}
+                                    <Field>
+                                        <FieldLabel htmlFor="teaching-style">
+                                            <span className="flex items-center gap-1">
+                                                <Users className="size-4" />
+                                                نحوه تدریس
+                                            </span>
+                                        </FieldLabel>
+                                        <Combobox
+                                            items={teachingStyles}
+                                            onValueChange={(val) => {
+                                                setSelectedTeachingStyle(val as string)
+                                                setValue("teachingStyle", val as string)
+                                            }}
+                                        >
+                                            <ComboboxInput placeholder="انتخاب نحوه تدریس" />
+                                            <ComboboxContent>
+                                                <ComboboxEmpty>موردی یافت نشد</ComboboxEmpty>
+                                                <ComboboxList>
+                                                    {(item) => (
+                                                        <ComboboxItem key={item} value={item}>
+                                                            {item}
+                                                        </ComboboxItem>
+                                                    )}
+                                                </ComboboxList>
+                                            </ComboboxContent>
+                                        </Combobox>
+                                    </Field>
 
-                        <div className="mt-4">
-                            <Field>
-                                <FieldLabel htmlFor="small-form-framework">سابقه</FieldLabel>
-                                <Input
-                                    placeholder="سابقه (سال)"
-                                    {...register("experienceYears", { valueAsNumber: true, required: true })}
-                                    type="number"
+                                    {/* اخلاقیات */}
+                                    <Field>
+                                        <FieldLabel htmlFor="ethics">
+                                            <span className="flex items-center gap-1">
+                                                <Star className="size-4" />
+                                                اخلاقیات
+                                            </span>
+                                        </FieldLabel>
+                                        <Combobox
+                                            items={ethicsLevels}
+                                            onValueChange={(val) => {
+                                                setSelectedEthics(val as string)
+                                                setValue("ethics", val as string)
+                                            }}
+                                        >
+                                            <ComboboxInput placeholder="اخلاقیات استاد" />
+                                            <ComboboxContent>
+                                                <ComboboxEmpty>موردی یافت نشد</ComboboxEmpty>
+                                                <ComboboxList>
+                                                    {(item) => (
+                                                        <ComboboxItem key={item} value={item}>
+                                                            {item}
+                                                        </ComboboxItem>
+                                                    )}
+                                                </ComboboxList>
+                                            </ComboboxContent>
+                                        </Combobox>
+                                    </Field>
+                                </div>
 
-                                />
-                            </Field>
-                        </div>
-                        <div>
-                            <Field>
-                            <h3 className="text-xl font-bold ">تحصیلات</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                                    {/* روش ارزیابی */}
+                                    <Field>
+                                        <FieldLabel htmlFor="evaluation-method">
+                                            <span className="flex items-center gap-1">
+                                                <ClipboardList className="size-4" />
+                                                روش ارزیابی
+                                            </span>
+                                        </FieldLabel>
+                                        <Combobox
+                                            items={evaluationMethods}
+                                            onValueChange={(val) => {
+                                                setSelectedEvaluationMethod(val as string)
+                                                setValue("evaluationMethod", val as string)
+                                            }}
+                                        >
+                                            <ComboboxInput placeholder="روش ارزیابی دانشجویان" />
+                                            <ComboboxContent>
+                                                <ComboboxEmpty>موردی یافت نشد</ComboboxEmpty>
+                                                <ComboboxList>
+                                                    {(item) => (
+                                                        <ComboboxItem key={item} value={item}>
+                                                            {item}
+                                                        </ComboboxItem>
+                                                    )}
+                                                </ComboboxList>
+                                            </ComboboxContent>
+                                        </Combobox>
+                                    </Field>
 
-                            {/* لیست ثبت شده‌ها */}
-                            <div className="flex gap-3 flex-wrap mb-4">
-                                {fields.map((item, index) => (
-                                    <Badge key={item.id} className="flex items-center gap-2">
-                                        {item.degree} | {item.university}
-                                        <X
-                                            className="cursor-pointer w-4 h-4"
-                                            onClick={() => remove(index)}
+                                    {/* دسترسی و ارتباط */}
+                                    <Field>
+                                        <FieldLabel htmlFor="availability">
+                                            <span className="flex items-center gap-1">
+                                                💬
+                                                نحوه ارتباط با استاد
+                                            </span>
+                                        </FieldLabel>
+                                        <Combobox
+                                            items={availabilityOptions}
+                                            onValueChange={(val) => {
+                                                setSelectedAvailability(val as string)
+                                                setValue("availability", val as string)
+                                            }}
+                                        >
+                                            <ComboboxInput placeholder="روش ارتباط با استاد" />
+                                            <ComboboxContent>
+                                                <ComboboxEmpty>موردی یافت نشد</ComboboxEmpty>
+                                                <ComboboxList>
+                                                    {(item) => (
+                                                        <ComboboxItem key={item} value={item}>
+                                                            {item}
+                                                        </ComboboxItem>
+                                                    )}
+                                                </ComboboxList>
+                                            </ComboboxContent>
+                                        </Combobox>
+                                    </Field>
+                                </div>
+
+                                {/* میزان ارتباط و تعامل */}
+                                <div className="mt-4">
+                                    <Field>
+                                        <FieldLabel htmlFor="communication-skill">
+                                            مهارت ارتباطی و تعامل با دانشجویان (از ۱ تا ۵)
+                                        </FieldLabel>
+                                        <div className="flex gap-2 mt-1">
+                                            {[1, 2, 3, 4, 5].map((rate) => (
+                                                <Button
+                                                    key={rate}
+                                                    type="button"
+                                                    variant={watch("communicationSkill") === rate ? "default" : "outline"}
+                                                    className="w-12"
+                                                    onClick={() => setValue("communicationSkill", rate)}
+                                                >
+                                                    {rate}
+                                                </Button>
+                                            ))}
+                                        </div>
+                                    </Field>
+                                </div>
+                            </div>
+
+                            {/* بخش تحصیلات */}
+                            <div className="mt-6 pt-4 border-t border-dashed border-gray-200">
+                                <Field>
+                                    <h3 className="text-lg font-bold mb-4">تحصیلات</h3>
+
+                                    {/* لیست ثبت شده‌ها */}
+                                    <div className="flex gap-3 flex-wrap mb-4">
+                                        {fields.map((item, index) => (
+                                            <Badge key={item.id} className="flex items-center gap-2">
+                                                {item.degree} | {item.university} | {item.field}
+                                                <X
+                                                    className="cursor-pointer w-4 h-4"
+                                                    onClick={() => remove(index)}
+                                                />
+                                            </Badge>
+                                        ))}
+                                    </div>
+
+                                    {/* فرم افزودن */}
+                                    <div className="grid md:grid-cols-3 gap-4">
+                                        <Combobox
+                                            items={degrees}
+                                            onValueChange={(val) =>
+                                                setTempEducation((prev: Education) => ({
+                                                    ...prev,
+                                                    degree: val as string,
+                                                }))
+                                            }
+                                        >
+                                            <ComboboxInput placeholder="مقطع تحصیلی" />
+                                            <ComboboxContent>
+                                                <ComboboxEmpty>موردی یافت نشد</ComboboxEmpty>
+                                                <ComboboxList>
+                                                    {(item) => (
+                                                        <ComboboxItem key={item} value={item}>
+                                                            {item}
+                                                        </ComboboxItem>
+                                                    )}
+                                                </ComboboxList>
+                                            </ComboboxContent>
+                                        </Combobox>
+
+                                        <Input
+                                            placeholder="دانشگاه"
+                                            value={tempEducation.university}
+                                            onChange={(e) =>
+                                                setTempEducation((prev) => ({
+                                                    ...prev,
+                                                    university: e.target.value,
+                                                }))
+                                            }
                                         />
-                                    </Badge>
-                                ))}
+
+                                        <Input
+                                            placeholder="رشته"
+                                            value={tempEducation.field}
+                                            onChange={(e) =>
+                                                setTempEducation((prev) => ({
+                                                    ...prev,
+                                                    field: e.target.value,
+                                                }))
+                                            }
+                                        />
+                                    </div>
+
+                                    <div className="mt-4">
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            size="icon"
+                                            onClick={() => {
+                                                if (
+                                                    !tempEducation.degree ||
+                                                    !tempEducation.university ||
+                                                    !tempEducation.field
+                                                )
+                                                    return
+
+                                                append(tempEducation)
+
+                                                setTempEducation({
+                                                    degree: "",
+                                                    university: "",
+                                                    field: "",
+                                                })
+                                            }}
+                                        >
+                                            <Plus />
+                                        </Button>
+                                    </div>
+                                </Field>
                             </div>
 
-                            {/* فرم افزودن */}
-                            <div className="grid md:grid-cols-3 gap-4">
-                                <Combobox
-                                    items={degrees}
-                                    onValueChange={(val) =>
-                                        setTempEducation((prev: Education) => ({
-                                            ...prev,
-                                            degree: val as string,
-                                        }))
-                                    }
-                                >
-                                    <ComboboxInput placeholder="مقطع تحصیلی" />
-                                    <ComboboxContent>
-                                        <ComboboxEmpty>موردی یافت نشد</ComboboxEmpty>
-                                        <ComboboxList>
-                                            {(item) => (
-                                                <ComboboxItem key={item} value={item}>
-                                                    {item}
-                                                </ComboboxItem>
-                                            )}
-                                        </ComboboxList>
-                                    </ComboboxContent>
-                                </Combobox>
-
-                                <Input
-                                    placeholder="دانشگاه"
-                                    value={tempEducation.university}
-                                    onChange={(e) =>
-                                        setTempEducation((prev) => ({
-                                            ...prev,
-                                            university: e.target.value,
-                                        }))
-                                    }
-                                />
-
-                                <Input
-                                    placeholder="رشته"
-                                    value={tempEducation.field}
-                                    onChange={(e) =>
-                                        setTempEducation((prev) => ({
-                                            ...prev,
-                                            field: e.target.value,
-                                        }))
-                                    }
-                                />
-                            </div>
-
-                            <div className="mt-4">
-                                <Button
-                                    type="button"
-                                    variant="outline"
-                                    size="icon"
-                                    onClick={() => {
-                                        if (
-                                            !tempEducation.degree ||
-                                            !tempEducation.university ||
-                                            !tempEducation.field
-                                        )
-                                            return
-
-                                        append(tempEducation)
-
-                                        // reset temp
-                                        setTempEducation({
-                                            degree: "",
-                                            university: "",
-                                            field: "",
-                                        })
-                                    }}
-                                >
-                                    <Plus />
+                            {/* دکمه‌های ارسال و انصراف */}
+                            <div className="mt-6 flex justify-end gap-4">
+                                <Button type="submit" disabled={ButtonState.isNotActive || ButtonState.isLoading}>
+                                    {ButtonState.isLoading ? (
+                                        <span className="flex items-center space-x-2">
+                                            <RefreshCcw className="animate-spin" />
+                                            <span>در حال ذخیره...</span>
+                                        </span>
+                                    ) : (
+                                        'ذخیره'
+                                    )}
+                                </Button>
+                                <Button onClick={() => router.back()} variant="outline" type="button">
+                                    انصراف
                                 </Button>
                             </div>
-</Field>
-                        </div>
-                        <div className="mt-2 flex justify-end gap-4">
-                            <Button type="submit" disabled={isLoading}>
-                                {isLoading ? (
-                                    <span className="flex items-center space-x-2">
-                                        <svg
-                                            className="animate-spin size-5 delay-150 text-black"
-                                            viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" opacity="0.25" />
-                                            <path
-                                                d="M22 12a10 10 0 0 0-10-10"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                strokeWidth="4"
-                                                strokeLinecap="round"
-                                            />
-                                        </svg>
-                                        <span>در حال ذخیره...</span>
-                                    </span>
-                                ) : (
-                                    'ذخیره'
-                                )}
-
-                            </Button>
-                            <Button onClick={() => router.back()} variant="outline" type="button">
-                                انصراف
-                            </Button>
-                        </div>
-                    </FieldGroup>
-                </form>
-            </Card>
-        </CardArea>
-
-    );
+                        </FieldGroup>
+                    </form>
+                </Card>
+            </CardArea>
+        </CardAreaWrapper>
+    )
 }

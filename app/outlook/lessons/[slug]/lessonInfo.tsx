@@ -2,39 +2,12 @@ import { DataTable } from "@/components/data-table"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { columns, tableData } from "./columns"
 
 type LessonInfoProps = {
   level: number
   semesterInfo: SemesterInfo
 }
-const data: tableData[] = [
-  {
-    "وضعیت": "ناموفق",
-    name: "پایگاه داده",
-    id: 2
-  },
-  {
-    "وضعیت": "ناموفق",
-    name: "پایگاه داده",
-    id: 3
-  },
-  {
-    "وضعیت": "ناموفق",
-    name: "پایگاه داده",
-    id: 4
-  },
-  {
-    "وضعیت": "ناموفق",
-    name: "پایگاه داده",
-    id: 5
-  },
-  {
-    "وضعیت": "ناموفق",
-    name: "پایگاه داده",
-    id: 6
-  },
-]
+
 
 export const hardness = (level: number): string => {
   switch (level) {
@@ -80,11 +53,11 @@ const LessonInfo = ({ level, semesterInfo }: LessonInfoProps
         <p className="text-center">
           سیستم‌های عامل قلب تپنده‌ی هر رایانه‌اند؛ نرم‌افزاری که میان سخت‌افزار و کاربر پل می‌زند و همه چیز را هماهنگ و قابل استفاده می‌کند.
         </p>
-        <div className="mt-[6vh]">
+        {/* <div className="mt-[6vh]">
           <DataTable columns={columns} data={data} />
           <br />
           <DataTable columns={columns} data={data} />
-        </div>
+        </div> */}
       </Card>
     </div>
   )
