@@ -5,8 +5,8 @@ export const OSBN = () => {
         <svg
             viewBox="0 0 12.6 48"
             fill="none"
-            width={52}
-            className="w-fit h-48 opacity-80"
+            width="20" 
+            height="40"
             xmlns="http://www.w3.org/2000/svg"
         >
             <path
