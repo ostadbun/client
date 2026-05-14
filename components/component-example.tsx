@@ -3,10 +3,6 @@
 import * as React from "react"
 
 import {
-  Example,
-  ExampleWrapper,
-} from "@/components/example"
-import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -67,19 +63,20 @@ import {
 import { Textarea } from "@/components/ui/textarea"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { PlusSignIcon, BluetoothIcon, MoreVerticalCircle01Icon, FileIcon, FolderIcon, FolderOpenIcon, CodeIcon, MoreHorizontalCircle01Icon, SearchIcon, FloppyDiskIcon, DownloadIcon, EyeIcon, LayoutIcon, PaintBoardIcon, SunIcon, MoonIcon, ComputerIcon, UserIcon, CreditCardIcon, SettingsIcon, KeyboardIcon, LanguageCircleIcon, NotificationIcon, MailIcon, ShieldIcon, HelpCircleIcon, File01Icon, LogoutIcon } from "@hugeicons/core-free-icons"
+import { CardArea, CardAreaWrapper } from "./CardArea"
 
 export function ComponentExample() {
   return (
-    <ExampleWrapper>
+    <CardAreaWrapper>
       {/* <CardExample /> */}
       <FormExample />
-    </ExampleWrapper>
+    </CardAreaWrapper>
   )
 }
 
 export function CardExample() {
   return (
-    <Example title="Card" className="items-center justify-center">
+    <CardArea title="Card" className="items-center justify-center">
       <Card className="relative w-full max-w-sm overflow-hidden pt-0">
         <div className="bg-primary absolute inset-0 z-30 aspect-video opacity-50 mix-blend-color" />
         <img
@@ -123,7 +120,7 @@ export function CardExample() {
           </Badge>
         </CardFooter>
       </Card>
-    </Example>
+    </CardArea>
     
   )
 }
@@ -152,7 +149,7 @@ function FormExample() {
   const [theme, setTheme] = React.useState("light")
 
   return (
-    <Example title="Form">
+    <CardArea title="Form">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>User Information</CardTitle>
@@ -466,6 +463,6 @@ function FormExample() {
           </form>
         </CardContent>
       </Card>
-    </Example>
+    </CardArea>
   )
 }

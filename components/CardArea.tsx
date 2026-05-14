@@ -1,8 +1,9 @@
 import { cn } from "@/lib/utils"
+import { Disjonction } from "./osbn/table"
 
-function ExampleWrapper({ className, ...props }: React.ComponentProps<"div">) {
+function CardAreaWrapper({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <div className="bg-background w-full">
+    <div className="bg-background container mx-auto">
       <div
         data-slot="example-wrapper"
         className={cn(
@@ -16,7 +17,7 @@ function ExampleWrapper({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
-function Example({
+function CardArea({
   title,
   children,
   className,
@@ -30,11 +31,23 @@ function Example({
     <div
       data-slot="example"
       className={cn(
-        "mx-auto flex w-full max-w-lg min-w-0 flex-col gap-1 self-stretch lg:max-w-none",
+        "mx-auto flex w-full max-w-lg min-w-0 flex-col gap-1 self-stretch lg:max-w-none relative",
         containerClassName
       )}
       {...props}
     >
+
+
+      <div className="absolute -top-3 -right-[.53rem]">
+        <Disjonction />
+      </div>
+
+
+      <div className="absolute -bottom-3 -left-[.52rem]">
+        <Disjonction />
+      </div>
+
+
       {title && (
         <div className="text-muted-foreground px-1.5 py-2 text-xs font-medium">
           {title}
@@ -53,4 +66,4 @@ function Example({
   )
 }
 
-export { ExampleWrapper, Example }
+export { CardAreaWrapper, CardArea }
