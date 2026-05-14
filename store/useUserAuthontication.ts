@@ -4,6 +4,8 @@ import { redirect, RedirectType } from 'next/navigation';
 import { create } from 'zustand'
 
 interface CounterState {
+    [x: string]: any;
+    // [x: string]: any;
     isLogin: boolean,
     username: string,
     Login: (user: IUser) => void;

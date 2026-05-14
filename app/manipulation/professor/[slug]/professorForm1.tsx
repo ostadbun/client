@@ -230,11 +230,11 @@ export default function Professor({ initialData = defaultProfessorData }: Profes
                             {/* لیست ثبت شده‌ها */}
                             <div className="flex gap-3 flex-wrap mb-4">
                                 {fields.map((item, index) => (
-                                    <Badge key={item.id} className="flex items-center gap-2">
+                                    <Badge onClick={() => remove(index)}  key={item.id} className="flex items-center gap-2">
                                         {item.degree} | {item.university}
                                         <X
                                             className="cursor-pointer w-4 h-4"
-                                            onClick={() => remove(index)}
+                                            
                                         />
                                     </Badge>
                                 ))}
